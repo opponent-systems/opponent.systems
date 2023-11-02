@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Crimson Text', serif;
+  font-family: 'Arial', serif;
 }
 
 .main-container {
@@ -9,10 +9,21 @@ body {
   height: 100vh;
   overflow: hidden;
   display: flex;
-  align-items: center;
+  align-items: top;
   justify-content: center;
-  text-align: center;
-  background: #d2d2c2;
+  text-align: left;
+  background: #f1f1f1;
   color: #040404;
-  font-size: 24pt;
+  font-size: 16pt;
+  background-image: linear-gradient(#f1f1f1, #f2f0f9, #f3f3f9);
 }
+
+p {
+float: clear;
+margin: 2%;
+width:  40%;
+max-width: 600px;
+min-width: 250px;
+padding-top: 2%;
+}
+
