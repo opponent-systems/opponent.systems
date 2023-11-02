@@ -60,6 +60,8 @@ a:hover{
   color:  white;
 }
 
-
-
+strong {
+  color: black;
+  text-shadow: 0 0 .8em lightsteelblue;
 }
+
