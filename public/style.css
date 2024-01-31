@@ -68,5 +68,7 @@ strong {
 img {
   -webkit-filter: drop-shadow(1px 2px 2px #888);
   filter: drop-shadow(1px 2px 2px #888);
+  padding-top: 4px;
+    padding-left: 6px;
 }
 
