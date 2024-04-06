@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Arial', serif;
+  font-family: 'times new roman', serif;
   background-image: linear-gradient(#f1f1f1, #f2f0f9, #f3f3f9);
 
  width: 100vw;
@@ -12,19 +12,21 @@ body {
  
   overflow: hidden;
   align-items: top;
-  justify-content: center;
   text-align: left;
   color: #040404;
-  font-size: 15pt;
+  font-size: 16pt;
+  max-width: fit-content;
+  margin-inline: auto;
+
 }
 
 p {
 float: clear;
 margin-top: 5px;
-max-width: 600px;
+max-width: 552px;
 min-width: 250px;
 padding-top: 10px;
-padding-left: 14px;
+padding-left: 30px;
  padding-right: 14px;
 }
 
@@ -34,14 +36,13 @@ padding-left: 14px;
     font-size: 10pt;
     border-top: 1px solid #ddd;
     padding-top: 10px;
-    padding-left: 14px;
-    padding-right: 14px;
+
     margin-bottom: 14px;
     margin-top: 10px;
     width: 100%;
     float: left;
     clear: both;
-    text-align: left;
+    text-align: center;
     font-family: sans-serif;
     }
 
@@ -66,9 +67,14 @@ strong {
 }
 
 img {
-  -webkit-filter: drop-shadow(1px 2px 2px #888);
-  filter: drop-shadow(1px 2px 2px #888);
-  padding-top: 4px;
-    padding-left: 6px;
+  -webkit-filter: drop-shadow(1px 2px 2px #bbb);
+  filter: drop-shadow(1px 2px 2px #bbb);
+  padding-top: 42px;
+  padding-bottom: 24px;
+     display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+
 }
 
