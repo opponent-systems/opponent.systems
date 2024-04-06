@@ -25,7 +25,13 @@ body {
         font-size: 14pt; /* Smaller font size for mobile devices */
     }
 
-  
+  #footer {
+        font-size: 8pt;
+    }
+  img{
+      padding-top: 12px;
+      padding-bottom: 12px;
+  }
 }
 
 p {
