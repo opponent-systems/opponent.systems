@@ -20,6 +20,14 @@ body {
 
 }
 
+@media (max-width: 600px) {
+    .main-container  {
+        font-size: 14pt; /* Smaller font size for mobile devices */
+    }
+
+  
+}
+
 p {
 float: clear;
 margin-top: 5px;
