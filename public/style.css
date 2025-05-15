@@ -4,7 +4,8 @@ body {
   font-family: "Times New Roman", Times, serif;
   line-height: 27px;
 /*  background-image: linear-gradient(#f1f1f1, #f2f0f9, #f3f3f9);
-*/  background-image: linear-gradient(#f1f1f1, #e7e3e2, #d4d7df);
+ */  background-image: linear-gradient(#f1f1f1, #e7e3e2, #d4d7df);
+ 
 
   
 
@@ -99,7 +100,7 @@ img {
   -webkit-filter: drop-shadow(1px 2px 2px #bbb);
   filter: drop-shadow(1px 2px 2px #bbb);
   padding-top: 42px;
-  padding-bottom: 24px;
+  padding-bottom: 0px;
      display: block;
   margin-left: auto;
   margin-right: auto;
