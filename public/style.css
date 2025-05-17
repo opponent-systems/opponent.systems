@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Times New Roman", Times, serif;
-  line-height: 27px;
+  line-height: 28px;
 /*  background-image: linear-gradient(#f1f1f1, #f2f0f9, #f3f3f9);
  */  background-image: linear-gradient(#f1f1f1, #e7e3e2, #d4d7df);
  
@@ -19,7 +19,7 @@ body {
   align-items: top;
   text-align: left;
   color: #040404;
-  font-size: 16pt;
+  font-size: 17pt;
   max-width: fit-content;
   margin-inline: auto;
   padding-bottom: 40px;
@@ -51,11 +51,15 @@ body {
 p {
 float: clear;
 margin-top: 5px;
-max-width: 532px;
+max-width: 470px;
 min-width: 250px;
 padding-top: 10px;
 padding-left: 30px;
- padding-right: 14px;
+ padding-right: 30px;
+}
+
+#tagline {
+  text-align: left;
 }
 
 #footer {
