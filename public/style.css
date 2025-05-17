@@ -56,7 +56,22 @@ min-width: 250px;
 padding-top: 10px;
 padding-left: 30px;
  padding-right: 30px;
+
+ transition: all 0.35s ease;
 }
+
+.main-container:hover p {
+            opacity: 0.64;
+            transform: scale(0.98);
+        }
+
+        /* Hovered paragraph */
+.main-container p:hover {
+            opacity: 1;
+            transform: scale(1);
+/*            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+*/            z-index: 1;
+        }
 
 #tagline {
   text-align: left;
