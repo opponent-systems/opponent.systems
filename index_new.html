@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dragon Time - Opponent Systems</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Arial", "Times New Roman", Times, serif;
+            line-height: 24px;
+            background-image: linear-gradient(#f1f1f1, #e7e3e2, #d4d7df);
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .main-container {
+            overflow: hidden;
+            text-align: center;
+            color: #040404;
+            font-size: 14pt;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            padding-bottom: 40px;
+            transform: scaleY(1);
+            box-sizing: border-box;
+        }
+
+        .video-container {
+            max-width: 500px;
+            margin: 20px auto 30px auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 280px;
+            border: none;
+        }
+
+        @media (max-width: 599px) {
+            .video-container {
+                max-width: 90%;
+                margin: 15px auto 25px auto;
+            }
+            
+            .video-container iframe {
+                height: 200px;
+            }
+            
+            .main-container {
+                font-size: 14pt;
+                line-height: 24px;
+            }
+            
+            img {
+                padding-top: 12px;
+                padding-bottom: 12px;
+            }
+            
+            .main-container:hover p {
+                opacity: 1;
+                transform: none;
+            }
+            
+            .main-container p:hover {
+                opacity: 1;
+                transform: none;
+                z-index: auto;
+            }
+            
+            .waitlist-form {
+                padding: 15px 20px !important;
+            }
+            
+            .form-content {
+                flex-direction: column !important;
+                gap: 8px !important;
+            }
+            
+            .form-inputs {
+                flex-direction: column !important;
+                gap: 10px !important;
+                width: 100% !important;
+            }
+            
+            .submit-btn {
+                width: 100% !important;
+                margin-top: 8px !important;
+            }
+        }
+
+        @media (min-width: 600px) {
+            #footer {
+                bottom: 0; 
+                position: fixed;
+            }
+            
+            .main-container:hover p {
+                opacity: 1;
+                transform: none;
+            }
+            
+            .main-container p:hover {
+                opacity: 1;
+                transform: none;
+                z-index: auto;
+            }
+        }
+
+        p {
+            float: clear;
+            margin: 5px auto;
+            max-width: 468px;
+            min-width: 250px;
+            padding-top: 10px;
+            padding-left: 30px;
+            padding-right: 30px;
+            transition: all 0.35s ease;
+            text-align: center;
+        }
+
+        #tagline {
+            text-align: center;
+            color: #fff;
+            font-size: 42pt;
+            transform: scaleY(1.56);
+        }
+
+        #footer {
+            font-size: 10pt;
+/*            border-top: 1px solid #aaa;
+*/            padding-top: 10px;
+            margin-bottom: 14px;
+            margin-top: 10px;
+            width: 100%;
+            float: center;
+            clear: both;
+            text-align: center;
+            font-family: sans-serif;
+        }
+
+        a {
+            cursor: pointer;
+            text-decoration: underline;
+            color: black;
+        }
+
+        a:visited {
+            color: black;
+        }
+
+        a:hover {
+            background-color: black;
+            color: white;
+        }
+
+        strong {
+            font-family: 'times new roman', serif;
+            color: black;
+            text-shadow: 0 0 .8em lightsteelblue;
+        }
+
+        img {
+            -webkit-filter: drop-shadow(1px 2px 2px #bbb);
+            filter: drop-shadow(1px 2px 2px #bbb);
+            padding-top: 42px;
+            padding-bottom: 0px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Updated waitlist form styles for horizontal layout */
+        .waitlist-form {
+            float: clear;
+            margin: 50px auto;
+            width: 100%;
+            max-width: 700px;
+            min-width: 300px;
+            padding: 15px 25px;
+            transition: all 0.35s ease;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(170, 170, 170, 0.3);
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+
+        .form-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .waitlist-subtitle {
+            font-size: 16pt;
+            color: #333;
+            margin: 0;
+            line-height: 1;
+            white-space: nowrap;
+            font-weight: normal;
+        }
+
+        .form-inputs {
+            display: flex;
+            gap: 15px;
+            flex: 1;
+            max-width: 600px;
+            min-width: 300px;
+        }
+
+        .form-group {
+            flex: 1;
+            min-width: 0;
+        }
+
+        input[type="text"], input[type="tel"] {
+            width: 100%;
+            padding: 16px 16px;
+            border: 1px solid #aaa;
+            border-radius: 25px;
+            font-family: "Arial","Times New Roman", Times, serif;
+            font-size: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+        }
+
+        input[type="text"]:focus, input[type="tel"]:focus {
+            outline: none;
+            border-color: #666;
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        input::placeholder {
+            color: #999;
+            font-style: normal;
+        }
+
+        .submit-btn {
+            background: #F64508;
+            color: white;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 25px;
+            font-family: "Arial", "Times New Roman", Times, serif;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            margin: 0;
+        }
+
+        .submit-btn:hover {
+            background: #eb3224;
+            transform: translateY(1px);
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        
+        
+<!--         <div id="tagline"><strong>OPPONENT SYSTEMS</strong></div>
+ -->        
+ 
+        <div class="waitlist-form">
+            <form id="waitlistForm" style="width: 100%;">
+                <div class="form-content">
+
+                    
+                    <div class="form-inputs">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Your name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="phone" name="phone" placeholder="Phone number" required>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Playtest DRAGON TIME</button>
+                </div>
+            </form>
+        </div>
+        
+        <p>DRAGON TIME</p>
+
+        <p>Play time kids want.<br>Away time parents need.</p>
+        <p> </p>
+        <p>Featuring Dragon, a new kind of AI <br>entertainer for the whole family. <br>Only on FaceTime (no app).</p>
+        <p> </p>
+        <p>Opponent Systems is a new company <br>founded by <a href="http://iancheng.com" target="blank">Ian Cheng</a> in New York City. <br>We're building living characters <br>to guide the next generation.</p>
+        <p> </p>
+        <p>Say hi <a href="mailto:ian@opponent.systems">ian@opponent.systems</a></p>
+        <img src='https://opponent.systems/public/opponent_logo_sm.png' width="124px"/>
+
+         <div id="footer">
+        <!--       Opponent Systems 2025 | <a href="https://x.com/OpponentAI" "target=blank">@OpponentAI</a> | <i>What challenges you changes you ~</i> 
+         -->    
+            OPPONENT SYSTEMS 2025 | <a href="https://x.com/OpponentAI" "target=blank">@OpponentAI</a>
+        </div>
+
+    </div>
+
+    <script>
+        function validateName(name) {
+            const nameRegex = /^[a-zA-Z\s\-']{1,42}$/;
+            return nameRegex.test(name.trim());
+        }
+
+        function validatePhone(phone) {
+            const cleanPhone = phone.replace(/\D/g, '');
+            return cleanPhone.length >= 10 && cleanPhone.length <= 11;
+        }
+
+        function showSuccess() {
+            const formBox = document.querySelector('.waitlist-form');
+            formBox.innerHTML = `
+                <div style="text-align: center; padding: 20px 0;">
+                    <div style="font-size: 16pt; font-weight: bold; color: #040404; text-shadow: 0 0 .8em lightsteelblue; margin-bottom: 12px;">
+                        🐉
+                    </div>
+                    <div style="font-size: 15pt; color: #333; line-height: 26px;">
+                        Thank you! Dragon will be in touch to demo soon.
+                    </div>
+                </div>
+            `;
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage') || document.createElement('div');
+            errorDiv.id = 'errorMessage';
+            errorDiv.style.cssText = 'color: #ff0000; font-size: 12pt; text-align: center; margin-top: 10px; font-family: sans-serif; position: absolute; left: 50%; transform: translateX(-50%); top: 100%; width: max-content; background: rgba(255,255,255,0.9); padding: 5px 10px; border-radius: 10px;';
+            errorDiv.textContent = message;
+            
+            const form = document.querySelector('.waitlist-form');
+            form.style.position = 'relative';
+            if (!document.getElementById('errorMessage')) {
+                form.appendChild(errorDiv);
+            }
+            
+            setTimeout(() => {
+                if (errorDiv.parentNode) {
+                    errorDiv.parentNode.removeChild(errorDiv);
+                }
+            }, 4000);
+        }
+
+        document.getElementById('waitlistForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            
+            const existingError = document.getElementById('errorMessage');
+            if (existingError) {
+                existingError.remove();
+            }
+            
+            if (!name) {
+                showError('Please enter your name');
+                return;
+            }
+            
+            if (!validateName(name)) {
+                showError('Name should only contain letters, spaces, hyphens, and apostrophes (max 42 characters)');
+                return;
+            }
+            
+            if (!phone) {
+                showError('Please enter your phone number');
+                return;
+            }
+            
+            if (!validatePhone(phone)) {
+                showError('Please enter a valid phone number');
+                return;
+            }
+            
+            const subject = 'Dragon Time Playtest Signup';
+            const body = `New playtest signup:\n\nName: ${name}\nPhone: ${phone}\n\nSent from opponent.systems playtest form`;
+            
+            window.location.href = `mailto:ian@opponent.systems?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            showSuccess();
+        });
+    </script>
+</body>
+</html>
