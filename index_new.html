@@ -379,8 +379,8 @@
             }, 4000);
         }
 
-        function getDeviceInfo() {
-            const ua = navigator.userAgent;
+         function getDeviceInfo() {
+            const ua = navigator.userAgent || '';
             
             // Detect device type
             let deviceType = 'Desktop';
@@ -398,13 +398,18 @@
             else if (/Mac/.test(ua)) os = 'macOS';
             else if (/Linux/.test(ua)) os = 'Linux';
             
-            // Get timezone
-            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            // Get timezone with fallback
+            let timezone = 'Unknown';
+            try {
+                timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Unknown';
+            } catch (e) {
+                timezone = 'Unknown';
+            }
             
             return {
-                deviceType,
-                os,
-                timezone
+                deviceType: deviceType || 'Unknown',
+                os: os || 'Unknown',
+                timezone: timezone || 'Unknown'
             };
         }
 
