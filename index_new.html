@@ -327,7 +327,7 @@
         OPPONENT SYSTEMS 2025 | <a href="https://x.com/OpponentAI" target="blank">@OpponentAI</a>
     </div>
 
-    <script>
+   <script>
         function validateName(name) {
             const nameRegex = /^[a-zA-Z\s\-']{1,42}$/;
             return nameRegex.test(name.trim());
@@ -373,7 +373,7 @@
 
         async function submitToNotion(name, phone) {
             // Replace this URL with your actual Netlify site URL
-            const PROXY_URL = 'https://YOUR-SITE-NAME.netlify.app/.netlify/functions/submit-to-notion';
+            const PROXY_URL = 'https://opponent.systems/.netlify/functions/submit-to-notion';
             
             const data = {
                 name: name,
@@ -391,11 +391,18 @@
                     body: JSON.stringify(data)
                 });
                 
+                console.log('Response status:', response.status);
+                console.log('Response headers:', response.headers);
+                
                 if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                    const errorText = await response.text();
+                    console.error('Error response:', errorText);
+                    throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
                 }
                 
-                return await response.json();
+                const result = await response.json();
+                console.log('Success response:', result);
+                return result;
             } catch (error) {
                 console.error('Error submitting to Notion:', error);
                 throw error;

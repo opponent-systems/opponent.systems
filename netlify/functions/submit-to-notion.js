@@ -24,10 +24,10 @@ exports.handler = async (event, context) => {
         title: [{ text: { content: name } }]
       },
       "Phone": {
-        phone_number: phone
+        rich_text: [{ text: { content: phone } }]
       },
       "Timestamp": {
-        date: { start: timestamp }
+        rich_text: [{ text: { content: timestamp } }]
       },
       "Source": {
         rich_text: [{ text: { content: source } }]
