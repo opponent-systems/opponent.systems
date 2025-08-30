@@ -65,7 +65,7 @@
             }
             
             .main-container {
-                font-size: 14pt;
+                font-size: 12pt;
                 line-height: 24px;
             }
             
@@ -379,15 +379,49 @@
             }, 4000);
         }
 
+        function getDeviceInfo() {
+            const ua = navigator.userAgent;
+            
+            // Detect device type
+            let deviceType = 'Desktop';
+            if (/iPad|Android(?!.*Mobile)|Tablet/i.test(ua)) {
+                deviceType = 'Tablet';
+            } else if (/iPhone|iPod|Android.*Mobile|BlackBerry|Opera Mini|IEMobile/i.test(ua)) {
+                deviceType = 'Mobile';
+            }
+            
+            // Detect OS
+            let os = 'Unknown';
+            if (/iPhone|iPad|iPod/.test(ua)) os = 'iOS';
+            else if (/Android/.test(ua)) os = 'Android';
+            else if (/Windows/.test(ua)) os = 'Windows';
+            else if (/Mac/.test(ua)) os = 'macOS';
+            else if (/Linux/.test(ua)) os = 'Linux';
+            
+            // Get timezone
+            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            
+            return {
+                deviceType,
+                os,
+                timezone
+            };
+        }
+
         async function submitToNotion(name, phone) {
             // Replace this URL with your actual Netlify site URL
             const PROXY_URL = 'https://opponent.systems/.netlify/functions/submit-to-notion';
             
+            const deviceInfo = getDeviceInfo();
+            
             const data = {
                 name: name,
                 phone: phone,
-                timestamp: new Date().toISOString(),
-                source: "opponent.systems landing page"
+                timestamp: new Date().toLocaleString(),
+                source: "OS Landing Page",
+                deviceType: deviceInfo.deviceType,
+                os: deviceInfo.os,
+                timezone: deviceInfo.timezone
             };
             
             try {

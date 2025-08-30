@@ -15,25 +15,20 @@ exports.handler = async (event, context) => {
     return { statusCode: 405, headers, body: 'Method Not Allowed' };
   }
 
-  const { name, phone, timestamp, source } = JSON.parse(event.body);
-  
-  const data = {
-    parent: { database_id: process.env.NOTION_DATABASE_ID },
-    properties: {
-      "Name": {
-        title: [{ text: { content: name } }]
-      },
-      "Phone": {
-        rich_text: [{ text: { content: phone } }]
-      },
-      "Timestamp": {
-        rich_text: [{ text: { content: timestamp } }]
-      },
-      "Source": {
-        rich_text: [{ text: { content: source } }]
-      }
-    }
-  };
+ const { name, phone, timestamp, source, deviceType, os, timezone } = JSON.parse(event.body);
+
+const data = {
+  parent: { database_id: process.env.NOTION_DATABASE_ID },
+  properties: {
+    "Name": { title: [{ text: { content: name } }] },
+    "Phone": { rich_text: [{ text: { content: phone } }] },
+    "Timestamp": { rich_text: [{ text: { content: timestamp } }] },
+    "Source": { rich_text: [{ text: { content: source } }] },
+    "Device Type": { rich_text: [{ text: { content: deviceType } }] },
+    "OS": { rich_text: [{ text: { content: os } }] },
+    "Timezone": { rich_text: [{ text: { content: timezone } }] }
+  }
+};
 
   try {
     const response = await fetch('https://api.notion.com/v1/pages', {
