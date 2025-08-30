@@ -313,6 +313,8 @@
     overflow: hidden;
     position: relative;
     aspect-ratio: 16/9;
+    -webkit-mask-image: -webkit-radial-gradient(white, black); /* Force hardware acceleration on iOS */
+    mask-image: radial-gradient(white, black);
 }
 
 .video-thumbnail {
@@ -323,9 +325,10 @@
     transition: all 0.3s ease;
     pointer-events: none;
     display: block;
-    margin: 0; /* Remove any default margins */
-    padding: 0; /* Remove any default padding */
-    vertical-align: top; /* Remove baseline alignment issues */
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+    border-radius: 16px; /* Match parent border-radius */
 }
 
 .video-preview-box:hover .video-thumbnail {
@@ -360,6 +363,8 @@
     background: none; /* Remove circle background */
     border-radius: 0; /* Remove border radius */
     pointer-events: none;
+    border-radius: 4px; /* Add slight rounding to corners */
+
 }
 
 .video-preview-box:hover .play-icon {
@@ -367,17 +372,6 @@
     transform: scale(1.2); /* Slightly larger scale on hover */
 }
 
-.play-icon {
-    width: 80px;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    background: none;
-    border-radius: 0;
-    pointer-events: none;
-}
 
 .video-preview-box:hover .play-icon {
     background: none;
@@ -395,6 +389,8 @@
     transition: all 0.3s ease;
     pointer-events: none;
     filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+    border-radius: 4px; /* Add slight rounding to corners */
+
 }
 
 .video-preview-box:hover .play-icon::after {
