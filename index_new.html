@@ -8,7 +8,7 @@
         body {
             margin: 0;
             padding: 0;
-            font-family: "Arial", "Times New Roman", Times, serif;
+            font-family: "Times New Roman", Times, serif;
             line-height: 24px;
             background-image: linear-gradient(#f1f1f1, #e7e3e2, #d4d7df);
             width: 100vw;
@@ -137,7 +137,7 @@
             padding-top: 10px;
             padding-left: 30px;
             padding-right: 30px;
-            transition: all 0.35s ease;
+            transition: all 0.5s ease;
             text-align: center;
         }
 
@@ -201,13 +201,16 @@
             padding: 15px 25px;
             transition: all 0.35s ease;
             background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(170, 170, 170, 0.3);
+            border: 0px solid rgba(170, 170, 170, 0.1);
             border-radius: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
             box-sizing: border-box;
-            box-shadow: 0 0 24px rgba(255, 255, 255, 0.9);
+            box-shadow: 
+                inset 0 2px 8px rgba(255, 255, 255, 0.2),
+                inset 0 2px 8px rgba(255, 255, 255, 0.2),
+                0 0 24px rgba(255, 255, 255, 0.9);
         }
 
         .form-content {
@@ -269,7 +272,7 @@
             background: #000;
             color: #fff;
             padding: 16px 24px;
-            border: 1px solid lightsteelblue;
+            border: 0px solid lightsteelblue;
             border-radius: 25px;
             font-family: "Arial", "Times New Roman", Times, serif;
             font-size: 16px;
@@ -293,12 +296,17 @@
 <body>
     <div class="main-container">
         
-           <p></p><p></p><p></p><p></p>
-        <div class="video-container">
+           
+       <!--  <div class="video-container">
            <iframe width="560" height="815" src="https://www.youtube.com/embed/eW3hGdnwxZY?si=18nnwjDrUd8kmfu7" title="YouTube video player" frameborder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </div>
+        </div> -->
 
+        <img src='https://opponent.systems/public/opponent_logo_sm.png' width="96px"/>
 
+        <p>DRAGON TIME</p>
+        <p>Play time kids want.<br>Away time parents need.</p>
+        <p> </p>
+        <p>Featuring Dragon, a new kind of AI <br>entertainer for the whole family. <br>Only on FaceTime (no app).</p>
         
         <div class="waitlist-form">
             <form id="waitlistForm" style="width: 100%;">
@@ -317,16 +325,11 @@
             </form>
         </div>
         
-        <p>DRAGON TIME</p>
-
-        <p>Play time kids want.<br>Away time parents need.</p>
-        <p> </p>
-        <p>Featuring Dragon, a new kind of AI <br>entertainer for the whole family. <br>Only on FaceTime (no app).</p>
+        
         <p> </p>
         <p>Opponent Systems is a new company <br>founded by <a href="http://iancheng.com" target="blank">Ian Cheng</a> in New York City. <br>We're building living characters <br>to guide the next generation.</p>
         <p> </p>
         <p>Say hi <a href="mailto:ian@opponent.systems">ian@opponent.systems</a></p>
-        <img src='https://opponent.systems/public/opponent_logo_sm.png' width="124px"/>
 
     </div>
 
