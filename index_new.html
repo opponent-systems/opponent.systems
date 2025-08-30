@@ -334,19 +334,27 @@
         }
 
         function validatePhone(phone) {
-            const cleanPhone = phone.replace(/\D/g, '');
-            return cleanPhone.length >= 10 && cleanPhone.length <= 11;
+            // Remove all non-digit characters except + at the beginning
+            const cleanPhone = phone.replace(/[^\d+]/g, '');
+            
+            // Check if it starts with + (international format)
+            if (cleanPhone.startsWith('+')) {
+                // International format: +1234567890 (7-15 digits after +)
+                const digitsAfterPlus = cleanPhone.substring(1);
+                return /^\d{7,15}$/.test(digitsAfterPlus);
+            } else {
+                // Domestic format: 10-11 digits (US/Canada style)
+                const digitsOnly = cleanPhone.replace(/\D/g, '');
+                return digitsOnly.length >= 7 && digitsOnly.length <= 15;
+            }
         }
 
         function showSuccess() {
             const formBox = document.querySelector('.waitlist-form');
             formBox.innerHTML = `
                 <div style="text-align: center; padding: 20px 0;">
-                    <div style="font-size: 16pt; font-weight: bold; color: #040404; text-shadow: 0 0 .8em lightsteelblue; margin-bottom: 12px;">
-                        🐉
-                    </div>
                     <div style="font-size: 15pt; color: #333; line-height: 26px;">
-                        Thank you! Dragon will be in touch to demo soon.
+                        Thank you! Dragon will be in touch to demo soon. 🐉💨
                     </div>
                 </div>
             `;
@@ -379,7 +387,7 @@
                 name: name,
                 phone: phone,
                 timestamp: new Date().toISOString(),
-                source: "Dragon Time Landing Page"
+                source: "opponent.systems landing page"
             };
             
             try {
@@ -443,7 +451,7 @@
             
             // Show loading state
             const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Submitting...';
+            submitBtn.textContent = 'Poking Dragon...';
             submitBtn.disabled = true;
             
             try {
