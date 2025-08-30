@@ -291,6 +291,181 @@
             transform: translateY(1px);
             box-shadow: 0 0 24px rgba(246, 69, 8, 0.42);
         }
+
+                        /* Video preview box styles */
+                .video-preview-box {
+                    float: clear;
+                    margin: 30px auto;
+                    width: 100%;
+                    max-width: 400px;
+                    min-width: 250px;
+                    padding: 20px;
+                    background: rgba(255, 255, 255, 0.15);
+                    border: 1px solid rgba(170, 170, 170, 0.2);
+                    border-radius: 16px;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    text-align: center;
+                    box-sizing: border-box;
+                    box-shadow: 
+                        inset 0 1px 4px rgba(255, 255, 255, 0.3),
+                        0 2px 12px rgba(0, 0, 0, 0.1);
+                }
+
+                .video-preview-box:hover {
+                    background: rgba(255, 255, 255, 0.25);
+                    transform: translateY(-2px);
+                    box-shadow: 
+                        inset 0 1px 4px rgba(255, 255, 255, 0.4),
+                        0 4px 20px rgba(0, 0, 0, 0.15);
+                }
+
+                .video-preview-content {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 8px;
+                }
+
+                .play-icon {
+                    width: 48px;
+                    height: 48px;
+                    background: #000;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transition: all 0.3s ease;
+                }
+
+                .video-preview-box:hover .play-icon {
+                    background: #eb3224;
+                    transform: scale(1.1);
+                }
+
+                .play-icon::after {
+                    content: '';
+                    width: 0;
+                    height: 0;
+                    border-left: 12px solid #fff;
+                    border-top: 8px solid transparent;
+                    border-bottom: 8px solid transparent;
+                    margin-left: 3px;
+                }
+
+                .video-preview-text {
+                    font-size: 14pt;
+                    color: #333;
+                    font-weight: normal;
+                    margin: 0;
+                }
+
+                /* Video overlay styles */
+                .video-overlay {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100vw;
+                    height: 100vh;
+                    background: rgba(0, 0, 0, 0.85);
+                    backdrop-filter: blur(8px);
+                    -webkit-backdrop-filter: blur(8px);
+                    z-index: 1000;
+                    display: none;
+                    align-items: center;
+                    justify-content: center;
+                    animation: fadeIn 0.3s ease;
+                }
+
+                .video-overlay.show {
+                    display: flex;
+                }
+
+                @keyframes fadeIn {
+                    from {
+                        opacity: 0;
+                    }
+                    to {
+                        opacity: 1;
+                    }
+                }
+
+                .video-overlay-content {
+                    position: relative;
+                    width: 90%;
+                    max-width: 800px;
+                    aspect-ratio: 16/9;
+                    background: #000;
+                    border-radius: 12px;
+                    overflow: hidden;
+                    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+                }
+
+                .video-overlay iframe {
+                    width: 100%;
+                    height: 100%;
+                    border: none;
+                }
+
+                .close-button {
+                    position: absolute;
+                    top: -50px;
+                    right: 0;
+                    background: rgba(255, 255, 255, 0.9);
+                    border: none;
+                    border-radius: 50%;
+                    width: 40px;
+                    height: 40px;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 20px;
+                    color: #333;
+                    transition: all 0.2s ease;
+                }
+
+                .close-button:hover {
+                    background: #fff;
+                    transform: scale(1.1);
+                }
+
+                /* Blur the main content when overlay is active */
+                body.overlay-active .main-container,
+                body.overlay-active #footer {
+                    filter: blur(4px);
+                    transition: filter 0.3s ease;
+                }
+
+                @media (max-width: 599px) {
+                    .video-preview-box {
+                        margin: 20px auto;
+                        max-width: 90%;
+                        padding: 15px;
+                    }
+                    
+                    .play-icon {
+                        width: 40px;
+                        height: 40px;
+                    }
+                    
+                    .play-icon::after {
+                        border-left: 10px solid #fff;
+                        border-top: 6px solid transparent;
+                        border-bottom: 6px solid transparent;
+                    }
+                    
+                    .video-preview-text {
+                        font-size: 12pt;
+                    }
+                    
+                    .close-button {
+                        top: -40px;
+                        width: 35px;
+                        height: 35px;
+                        font-size: 18px;
+                    }
+                }
     </style>
 </head>
 <body>
@@ -325,6 +500,12 @@
             </form>
         </div>
         
+        <div class="video-preview-box" onclick="openVideoOverlay()">
+    <div class="video-preview-content">
+        <div class="play-icon"></div>
+        <div class="video-preview-text">Watch Demo</div>
+    </div>
+</div>
         
         <p> </p>
         <p>Opponent Systems is a new company <br>founded by <a href="http://iancheng.com" target="blank">Ian Cheng</a> in New York City. <br>We're building living characters <br>to guide the next generation.</p>
@@ -332,6 +513,14 @@
         <p>Say hi <a href="mailto:ian@opponent.systems">ian@opponent.systems</a></p>
 
     </div>
+
+    <!-- Video Overlay -->
+<div class="video-overlay" id="videoOverlay" onclick="closeVideoOverlay(event)">
+    <div class="video-overlay-content">
+        <button class="close-button" onclick="closeVideoOverlay()">&times;</button>
+        <iframe id="videoIframe" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+</div>
 
     <div id="footer">
         OPPONENT SYSTEMS 2025 | <a href="https://x.com/OpponentAI" target="blank">@OpponentAI</a>
@@ -374,7 +563,7 @@
             const formBox = document.querySelector('.waitlist-form');
             formBox.innerHTML = `
                 <div style="text-align: center; padding: 20px 0;">
-                    <div style="font-size: 15pt; color: #333; line-height: 26px;">
+                    <div style="font-size: 14pt; color: #333; line-height: 26px;">
                         Thank you! Dragon will be in touch to demo soon 🐉💨
                     </div>
                 </div>
@@ -527,6 +716,47 @@
                 console.error('Submission error:', error);
             }
         });
+
+        // Video overlay functions
+function openVideoOverlay() {
+    const overlay = document.getElementById('videoOverlay');
+    const iframe = document.getElementById('videoIframe');
+    
+    // Set the YouTube URL with autoplay
+    iframe.src = "https://www.youtube.com/embed/eW3hGdnwxZY?si=18nnwjDrUd8kmfu7&autoplay=1";
+    
+    overlay.classList.add('show');
+    document.body.classList.add('overlay-active');
+    
+    // Prevent body scrolling
+    document.body.style.overflow = 'hidden';
+}
+
+function closeVideoOverlay(event) {
+    // Only close if clicking on overlay background or close button
+    if (event && event.target !== document.getElementById('videoOverlay') && event.target.className !== 'close-button') {
+        return;
+    }
+    
+    const overlay = document.getElementById('videoOverlay');
+    const iframe = document.getElementById('videoIframe');
+    
+    overlay.classList.remove('show');
+    document.body.classList.remove('overlay-active');
+    
+    // Stop video by clearing src
+    iframe.src = "";
+    
+    // Re-enable body scrolling
+    document.body.style.overflow = '';
+}
+
+// Close overlay with escape key
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeVideoOverlay();
+    }
+});
     </script>
 
 </body>
