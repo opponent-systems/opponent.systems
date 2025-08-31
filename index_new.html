@@ -463,9 +463,9 @@
 .video-overlay-content {
     position: relative;
     width: 90vw;
-    max-width: 800px;
-    height: calc(90vw * 9/16); /* Maintain 16:9 aspect ratio */
-    max-height: calc(800px * 9/16);
+    max-width: 600px; /* Reduced from 800px for 4:3 */
+    height: calc(90vw * 3/4); /* Changed from 9/16 to 3/4 for 4:3 ratio */
+    max-height: calc(600px * 3/4); /* Updated to match max-width */
     background: #000;
     border-radius: 12px;
     overflow: hidden;
@@ -515,7 +515,7 @@ body.overlay-active #footer {
 @media (max-width: 599px) {
     .video-overlay-content {
         width: 95vw;
-        height: calc(95vw * 9/16);
+        height: calc(95vw * 3/4); /* Changed from 9/16 to 3/4 */
     }
     
     .close-button {
@@ -847,9 +847,9 @@ document.addEventListener('keydown', function(event) {
 // Set random logo immediately (before DOM fully loads)
 const logoUrls = [
     'public/opponent_logo_sm.png',
-    'public/opponent_logo_sm_golden.png', 
+  /*  'public/opponent_logo_sm_golden.png', 
     'public/opponent_logo_sm_jade.png',
-    'public/opponent_logo_sm_galactic_blue.png'
+    'public/opponent_logo_sm_galactic_blue.png'*/
 ];
 
 const randomIndex = Math.floor(Math.random() * logoUrls.length);
