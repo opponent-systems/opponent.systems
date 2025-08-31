@@ -526,6 +526,87 @@ body.overlay-active #footer {
     }
 }
 
+/* squiggly line*/
+  .zigzag {
+  color:red;
+  display: inline;
+  position: relative;
+ }
+
+.zigzag:after {
+  content: '';
+  height: 10px;
+  width: 80%; /* Use percentage of parent */
+  position: absolute;
+  background: url("https://i.imgur.com/Wy0FoyJ.png");
+  background-size: 10px;
+  top: 28px;
+  bottom: 0px;
+  left: 10%; /* Center it horizontally */
+  -webkit-animation: zigzagPlay 2s infinite linear;
+  -moz-animation: zigzagPlay 2s infinite linear;
+  -ms-animation: zigzagPlay 2s infinite linear;
+  -o-animation: zigzagPlay 2s infinite linear;
+  animation: zigzagPlay 2s infinite linear;
+  -webkit-animation-play-state: running;
+  -moz-animation-play-state: running;
+  -o-animation-play-state: running;
+  animation-play-state: running;
+}
+
+/*.zigzag:hover:after {
+  -webkit-animation-play-state: running;
+  -moz-animation-play-state: running;
+  -o-animation-play-state: running;
+  animation-play-state: running;
+}
+*/
+
+@-webkit-keyframes zigzagPlay {
+  0% {
+    background-position: 0px;
+  }
+  100% {
+    background-position: -96px;
+  }
+}
+
+@-moz-keyframes zigzagPlay {
+  0% {
+    background-position: 0px;
+  }
+  100% {
+    background-position: -96px;
+  }
+}
+
+@-ms-keyframes zigzagPlay {
+  0% {
+    background-position: 0px;
+  }
+  100% {
+    background-position: -96px;
+  }
+}
+
+@-o-keyframes zigzagPlay {
+  0% {
+    background-position: 0px;
+  }
+  100% {
+    background-position: -96px;
+  }
+}
+
+@keyframes zigzagPlay {
+  0% {
+    background-position: 0px;
+  }
+  100% {
+    background-position: -96px;
+  }
+}
+
 
     </style>
 </head>
@@ -545,7 +626,7 @@ body.overlay-active #footer {
         <p> </p>
         <p>Featuring Dragon, a new kind of AI <br>entertainer for the whole family.</p>
         <p> </p>
-        <p>Demo now on FaceTime (no app).</p>
+        <p class="zigzag"><i>* Demoing now on FaceTime *</i></p>
         
         <div class="waitlist-form">
             <form id="waitlistForm" style="width: 100%;">
@@ -574,7 +655,7 @@ body.overlay-active #footer {
         <p> </p>
         <p>Opponent Systems is an interface company <br>founded by <a href="http://iancheng.com" target="blank">Ian Cheng</a> in New York City. <br>We're building ergonomic characters <br>to walk with the next generation.</p>
         <p> </p>
-        <p>Say hi <a href="mailto:ian@opponent.systems">ian@opponent.systems</a></p>
+        <p>Say hello<br><a href="mailto:ian@opponent.systems">ian@opponent.systems</a><br><a href="https://x.com/OpponentAI" target="blank">@OpponentAI</a></p>
 
     </div>
 
