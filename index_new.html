@@ -9,7 +9,7 @@
             margin: 0;
             padding: 0;
             font-family: "Times New Roman", Times, serif;
-            line-height: 24px;
+            line-height: 28px;
             background-image: linear-gradient(#f1f1f1, #e7e3e2, #d4d7df);
             width: 100vw;
             min-height: 100vh;
@@ -66,7 +66,7 @@
             
             .main-container {
                 font-size: 12pt;
-                line-height: 24px;
+                line-height: 20px;
             }
             
             img {
@@ -134,7 +134,7 @@
             margin: 5px auto;
             max-width: 468px;
             min-width: 250px;
-            padding-top: 10px;
+            padding-top: 6px;
             padding-left: 30px;
             padding-right: 30px;
             transition: all 0.5s ease;
@@ -631,15 +631,35 @@ body.overlay-active #footer {
         function showError(message) {
             const errorDiv = document.getElementById('errorMessage') || document.createElement('div');
             errorDiv.id = 'errorMessage';
-            errorDiv.style.cssText = 'color: #ff0000; font-size: 12pt; text-align: center; margin-top: 10px; font-family: sans-serif; position: absolute; left: 50%; transform: translateX(-50%); top: 100%; width: max-content; background: rgba(255,255,255,0.9); padding: 5px 10px; border-radius: 10px;';
+            errorDiv.style.cssText = `
+                 color: #ff0000; 
+                font-size: 12pt; 
+                text-align: center; 
+                font-family: sans-serif; 
+                position: fixed; 
+                left: 50%; 
+                top: 50%;
+                transform: translate(-50%, -25%); 
+                max-width: calc(100vw - 60px);
+                min-width: 300px;
+                background: rgba(255,255,255,0.95); 
+                padding: 12px 16px; 
+                border-radius: 12px; 
+                box-sizing: border-box;
+                word-wrap: break-word;
+                line-height: 1.4;
+                z-index: 2000;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+                border: 1px solid #ff0000;
+            `;
             errorDiv.textContent = message;
-            
+
             const form = document.querySelector('.waitlist-form');
             form.style.position = 'relative';
             if (!document.getElementById('errorMessage')) {
                 form.appendChild(errorDiv);
             }
-            
+
             setTimeout(() => {
                 if (errorDiv.parentNode) {
                     errorDiv.parentNode.removeChild(errorDiv);
