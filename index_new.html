@@ -327,7 +327,7 @@
     float: clear;
     margin: 30px auto;
     width: 100%;
-    max-width: 400px;
+    max-width: 420px;
     min-width: 250px;
     padding: 0;
     background: #000;
@@ -359,10 +359,14 @@
     padding: 0;
     vertical-align: top;
     border-radius: 16px; /* Match parent border-radius */
+   animation-play-state: paused; /* Freeze the GIF */
+
 }
 
-.video-preview-box:hover .video-thumbnail {
+.video-preview-box:hover .video-thumbnail,
+.video-preview-box.hover-active .video-thumbnail {
     transform: scale(1.05);
+    animation-play-state: running; /* Play GIF on hover */
 }
 
 .video-preview-content {
@@ -585,7 +589,7 @@ body.overlay-active #footer {
         </div>
         
 <div class="video-preview-box" onclick="openVideoOverlay()">
-    <img src="public/dragon_look.gif" alt="Video thumbnail" class="video-thumbnail">
+    <img src="public/dragon_look.jpg" alt="Video thumbnail" class="video-thumbnail">
     <div class="video-preview-content">
         <div class="play-icon"></div>
     </div>
@@ -978,6 +982,26 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Start parents text cycling after initial delay (offset timing)
     setTimeout(cycleParentsText, PARENTS_HOLD_TIME);
+});
+
+// Add this to your existing script section
+document.addEventListener('DOMContentLoaded', () => {
+    const videoBox = document.querySelector('.video-preview-box');
+    const thumbnail = document.querySelector('.video-thumbnail');
+    const staticSrc = thumbnail.src; // Current: "public/dragon_look.jpg"
+    const gifSrc = staticSrc.replace('.jpg', '.gif'); // Changes to: "public/dragon_look.gif"
+    
+    videoBox.addEventListener('mouseenter', () => {
+        thumbnail.src = gifSrc;
+        videoBox.classList.add('hover-active');
+    });
+    
+    videoBox.addEventListener('mouseleave', () => {
+        thumbnail.src = staticSrc;
+        videoBox.classList.remove('hover-active');
+    });
+    
+    // ... rest of your existing DOMContentLoaded code
 });
     </script>
 
