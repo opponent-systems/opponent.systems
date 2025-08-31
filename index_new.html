@@ -863,10 +863,10 @@ const parentsChangingTexts = [
 ];
 
 // Animation settings
-const KIDS_HOLD_TIME = 3000; // 3 seconds
+const KIDS_HOLD_TIME = 4200; // 3 seconds
 const PARENTS_HOLD_TIME = 4000; // 4 seconds
 const CHAR_REMOVE_DELAY = 50; // milliseconds between character removal
-const CHAR_ADD_DELAY = 80; // milliseconds between character addition
+const CHAR_ADD_DELAY = 42; // milliseconds between character addition
 
 let kidsCurrentIndex = 0;
 let parentsCurrentIndex = 0;
@@ -943,10 +943,10 @@ function cycleParentsText() {
 // Start cycling after page loads
 document.addEventListener('DOMContentLoaded', () => {
     // Start kids text cycling after initial delay
-    setTimeout(cycleKidsText, KIDS_HOLD_TIME);
+    setTimeout(cycleKidsText, KIDS_HOLD_TIME+1500);
     
     // Start parents text cycling after initial delay (offset timing)
-    setTimeout(cycleParentsText, PARENTS_HOLD_TIME + 1500);
+    setTimeout(cycleParentsText, PARENTS_HOLD_TIME);
 });
     </script>
 
