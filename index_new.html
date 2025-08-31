@@ -188,8 +188,8 @@
         }
 
         img {
-            -webkit-filter: drop-shadow(1px 2px 2px #bbb);
-            filter: drop-shadow(1px 2px 2px #bbb);
+            -webkit-filter: drop-shadow(1px 2px 2px #fff);
+            filter: drop-shadow(1px 2px 2px #fff);
             padding-top: 42px;
             padding-bottom: 0px;
             display: block;
@@ -531,7 +531,7 @@ body.overlay-active #footer {
            <iframe width="560" height="815" src="https://www.youtube.com/embed/eW3hGdnwxZY?si=18nnwjDrUd8kmfu7" title="YouTube video player" frameborder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div> -->
 
-        <img src='https://opponent.systems/public/opponent_logo_sm.png' width="96px"/>
+        <img id="logo" src='public/opponent_logo_sm_jade.png' width="96px"/>
 
         <p>DRAGON TIME</p>
         <p> </p>
@@ -837,6 +837,17 @@ document.addEventListener('keydown', function(event) {
         closeVideoOverlay();
     }
 });
+
+// Set random logo immediately (before DOM fully loads)
+const logoUrls = [
+    'public/opponent_logo_sm.png',
+    'public/opponent_logo_sm_golden.png', 
+    'public/opponent_logo_sm_jade.png',
+    'public/opponent_logo_sm_galactic_blue.png'
+];
+
+const randomIndex = Math.floor(Math.random() * logoUrls.length);
+document.getElementById('logo').src = logoUrls[randomIndex];
     </script>
 
 </body>
