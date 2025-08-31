@@ -133,8 +133,8 @@
         p {
             float: clear;
             margin: 5px auto;
-            max-width: 90%;
-            min-width: 300px;
+            max-width: 95%;
+            min-width: 320px;
             padding-top: 6px;
             padding-left: 15px;
             padding-right: 15px;
@@ -577,7 +577,7 @@ body.overlay-active #footer {
 <div class="video-overlay" id="videoOverlay" onclick="closeVideoOverlay(event)">
     <div class="video-overlay-content">
         <button class="close-button" onclick="closeVideoOverlay()">&times;</button>
-        <iframe id="videoIframe" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe id="videoIframe" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
 </div>
 
@@ -802,7 +802,7 @@ function openVideoOverlay() {
     const iframe = document.getElementById('videoIframe');
     
     // Set the YouTube URL with autoplay
-    iframe.src = "https://www.youtube.com/embed/eW3hGdnwxZY?si=18nnwjDrUd8kmfu7&autoplay=1";
+    iframe.src = "https://www.youtube.com/embed/eW3hGdnwxZY?si=18nnwjDrUd8kmfu7&autoplay=1&modestbranding=1&showinfo=0&rel=0&controls=1";
     
     overlay.classList.add('show');
     document.body.classList.add('overlay-active');
