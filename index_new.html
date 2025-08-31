@@ -535,7 +535,7 @@ body.overlay-active #footer {
 
         <p>DRAGON TIME</p>
         <p> </p>
-        <p>Play time kids need.<br>Away time parents want.</p>
+        <p><span id="kids-changing">Play time</span> kids need.<br><span id="parents-changing">Away time</span> parents want.</p>
         <p> </p>
         <p>Featuring Dragon, a new kind of AI <br>entertainer for the whole family.</p>
         <p> </p>
@@ -553,7 +553,7 @@ body.overlay-active #footer {
                         </div>
                     </div>
                     
-                    <button type="submit" class="submit-btn">Playtest DRAGON TIME</button>
+                    <button type="submit" class="submit-btn">Become a playtester</button>
                 </div>
             </form>
         </div>
@@ -848,6 +848,106 @@ const logoUrls = [
 
 const randomIndex = Math.floor(Math.random() * logoUrls.length);
 document.getElementById('logo').src = logoUrls[randomIndex];
+
+// Text cycling configuration - only the changing parts
+const kidsChangingTexts = [
+    "Play time",
+    "Deep play",
+    "Feedback"
+];
+
+const parentsChangingTexts = [
+    "Away time",
+    "Control",
+    "Teammate"
+];
+
+// Animation settings
+const KIDS_HOLD_TIME = 3000; // 3 seconds
+const PARENTS_HOLD_TIME = 4000; // 4 seconds
+const CHAR_REMOVE_DELAY = 50; // milliseconds between character removal
+const CHAR_ADD_DELAY = 80; // milliseconds between character addition
+
+let kidsCurrentIndex = 0;
+let parentsCurrentIndex = 0;
+let kidsAnimating = false;
+let parentsAnimating = false;
+
+function animateTextChange(element, newText, callback) {
+    const currentText = element.textContent;
+    let removeIndex = currentText.length;
+    
+    // Remove characters one by one
+    const removeInterval = setInterval(() => {
+        if (removeIndex > 0) {
+            element.textContent = currentText.substring(0, removeIndex - 1);
+            removeIndex--;
+        } else {
+            clearInterval(removeInterval);
+            
+            // Start adding new characters
+            let addIndex = 0;
+            const addInterval = setInterval(() => {
+                if (addIndex < newText.length) {
+                    element.textContent = newText.substring(0, addIndex + 1);
+                    addIndex++;
+                } else {
+                    clearInterval(addInterval);
+                    if (callback) callback();
+                }
+            }, CHAR_ADD_DELAY);
+        }
+    }, CHAR_REMOVE_DELAY);
+}
+
+function cycleKidsText() {
+    if (kidsAnimating) return;
+    kidsAnimating = true;
+    
+    const kidsElement = document.getElementById('kids-changing');
+    
+    // Get next random text (avoid repeating current)
+    let nextIndex;
+    do {
+        nextIndex = Math.floor(Math.random() * kidsChangingTexts.length);
+    } while (nextIndex === kidsCurrentIndex && kidsChangingTexts.length > 1);
+    
+    kidsCurrentIndex = nextIndex;
+    
+    animateTextChange(kidsElement, kidsChangingTexts[kidsCurrentIndex], () => {
+        kidsAnimating = false;
+        setTimeout(cycleKidsText, KIDS_HOLD_TIME);
+    });
+}
+
+function cycleParentsText() {
+    if (parentsAnimating) return;
+    parentsAnimating = true;
+    
+    const parentsElement = document.getElementById('parents-changing');
+    
+    // Get next random text (avoid repeating current)
+    let nextIndex;
+    do {
+        nextIndex = Math.floor(Math.random() * parentsChangingTexts.length);
+    } while (nextIndex === parentsCurrentIndex && parentsChangingTexts.length > 1);
+    
+    parentsCurrentIndex = nextIndex;
+    
+    animateTextChange(parentsElement, parentsChangingTexts[parentsCurrentIndex], () => {
+        parentsAnimating = false;
+        setTimeout(cycleParentsText, PARENTS_HOLD_TIME);
+    });
+}
+
+// Start cycling after page loads
+document.addEventListener('DOMContentLoaded', () => {
+    // Start kids text cycling after initial delay
+    setTimeout(cycleKidsText, KIDS_HOLD_TIME);
+    
+    // Start parents text cycling after initial delay (offset timing)
+    setTimeout(cycleParentsText, PARENTS_HOLD_TIME + 1500);
+});
     </script>
 
 </body>
