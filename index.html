@@ -462,10 +462,10 @@
 
 .video-overlay-content {
     position: relative;
-    width: 90vw;
-    max-width: 600px; /* Reduced from 800px for 4:3 */
-    height: calc(90vw * 3/4); /* Changed from 9/16 to 3/4 for 4:3 ratio */
-    max-height: calc(600px * 3/4); /* Updated to match max-width */
+    width: 60vw;
+    max-width: 400px;
+    height: calc(60vw * 4/3); /* 3:4 aspect ratio (4/3 = height/width) */
+    max-height: calc(400px * 4/3);
     background: #000;
     border-radius: 12px;
     overflow: hidden;
@@ -514,8 +514,8 @@ body.overlay-active #footer {
 
 @media (max-width: 599px) {
     .video-overlay-content {
-        width: 95vw;
-        height: calc(95vw * 3/4); /* Changed from 9/16 to 3/4 */
+        width: 70vw;
+        height: calc(70vw * 4/3); /* 3:4 aspect ratio */
     }
     
     .close-button {
@@ -888,8 +888,8 @@ function openVideoOverlay() {
     const overlay = document.getElementById('videoOverlay');
     const iframe = document.getElementById('videoIframe');
     
-    // Set the YouTube URL with autoplay
-    iframe.src = "https://www.youtube.com/embed/eW3hGdnwxZY?si=18nnwjDrUd8kmfu7&autoplay=1&modestbranding=1&showinfo=0&rel=0&controls=1";
+    // Set the YouTube Shorts URL - note the /embed/ format
+    iframe.src = "https://www.youtube.com/embed/fFivYvBhxLs?autoplay=1&modestbranding=1&showinfo=0&rel=0&controls=1";
     
     overlay.classList.add('show');
     document.body.classList.add('overlay-active');
@@ -952,7 +952,8 @@ const parentsChangingTexts = [
     "Control",
     "Teammate",
     "Support",
-    "Insight"
+    "Insight",
+    "Recreation"
 ];
 
 // Animation settings
