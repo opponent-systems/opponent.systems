@@ -464,12 +464,17 @@
     position: relative;
     width: 60vw;
     max-width: 400px;
-    height: calc(60vw * 4/3); /* 3:4 aspect ratio (4/3 = height/width) */
+    height: calc(60vw * 4/3);
     max-height: calc(400px * 4/3);
     background: #000;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+   /* box-shadow: 
+      0 20px 60px rgba(0, 0, 0, 0.5),
+      0 0 5px 3px rgba(0, 0, 0, 1),
+      0 0 15px 8px rgba(0, 0, 0, 0.9),
+      0 0 30px 15px rgba(0, 0, 0, 0.7),
+      0 0 50px 25px rgba(0, 0, 0, 0.5);*/
 }
 
 .video-overlay iframe {
@@ -957,8 +962,8 @@ const parentsChangingTexts = [
 ];
 
 // Animation settings
-const KIDS_HOLD_TIME = 8000; // 3 seconds
-const PARENTS_HOLD_TIME = 6000; // 4 seconds
+const KIDS_HOLD_TIME = 5000; // 3 seconds
+const PARENTS_HOLD_TIME = 3000; // 4 seconds
 const CHAR_REMOVE_DELAY = 20; // milliseconds between character removal
 const CHAR_ADD_DELAY = 40; // milliseconds between character addition
 
