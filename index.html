@@ -61,6 +61,15 @@
         }
 
         @media (max-width: 599px) {
+           p {
+                min-width: unset; /* Remove fixed min-width on mobile */
+                width: 100%; /* Use full available width */
+                max-width: 100%;
+                padding-left: 5px;
+                padding-right: 5px;
+                margin-left: 0;
+                margin-right: 0;
+            }
             .video-container {
                 max-width: 90%;
                 margin: 15px auto 25px auto;
@@ -74,7 +83,7 @@
             .main-container {
                 font-size: 14pt;
                 line-height: 24px;
-
+                padding: 0 15px; /* Reduce side padding on mobile */
             }
             
             img {
@@ -115,6 +124,10 @@
         }
 
         @media (min-width: 600px) {
+            p {
+              min-width: 336px; /* Keep min-width for desktop */
+            }
+
             .main-container p {
                 opacity: 1;
                 transform: scale(1);
@@ -138,15 +151,15 @@
         }
 
         p {
-            float: clear;
+            clear: both; /* Changed from float: clear */
             margin: 5px auto;
             max-width: 95%;
-            min-width: 336px;
             padding-top: 6px;
             padding-left: 10px;
             padding-right: 10px;
             transition: all 0.5s ease;
             text-align: center;
+            box-sizing: border-box; /* Added for better box model */
         }
 
         #tagline {
@@ -666,7 +679,7 @@ body.overlay-active #footer {
 </div>
         
         <p> </p>
-        <p>Opponent Systems is founded by <a href="http://iancheng.com" target="blank">Ian Cheng</a>. <br>We're building living characters <br>to orient the next generation.</p>
+        <p>Opponent Systems is founded by <a href="http://iancheng.com" target="blank">Ian Cheng</a>. <br>We're building orienting characters <br>to augment the next generation.</p>
         <p> </p>
         <p>Say hello <a href="mailto:ian@opponent.systems">ian@opponent.systems</a></p>
 <!--         <br><a href="https://x.com/OpponentAI" target="blank">@OpponentAI</a>
