@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opponent Systems</title>
+    <link rel="icon" type="image/png" href="public/opponent_logo_sm.png">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://opponent.systems/">
+    <meta property="twitter:title" content="Opponent Systems">
+    <meta property="twitter:description" content="We're building SAGA, a super-observant sense-making organ, loyal to you and who you are becoming.">
+    <meta property="twitter:image" content="https://opponent.systems/public/opponent_logo_sm.png">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Times New Roman", Times, serif;
+            line-height: 28px;
+            background-image: linear-gradient(#f1f1f1, #e7e3e2, #d4d7df);
+            width: 100vw;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 9999;
+            box-shadow: inset 0 0 24px 4px rgba(255, 255, 255, 0.52),
+                        inset 0 0 48px 12px rgba(255, 255, 255, 0.28);
+        }
+
+        .main-container {
+            overflow: hidden;
+            text-align: center;
+            color: #040404;
+            font-size: 18pt;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        .page-top,
+        .page-bottom {
+            flex: 1 1 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .page-top {
+            justify-content: space-between;
+        }
+
+        .page-bottom {
+            justify-content: space-between;
+        }
+
+        p {
+            clear: both;
+            margin: 5px auto;
+            max-width: 95%;
+            padding: 6px 10px 0;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        #footer {
+            font-size: 10pt;
+            padding: 20px 0;
+            margin-top: auto;
+            width: 100%;
+            text-align: center;
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        a {
+            cursor: pointer;
+            text-decoration: underline;
+            color: black;
+        }
+
+        a:visited {
+            color: black;
+        }
+
+        a:hover {
+            background-color: black;
+            color: white;
+        }
+
+        img {
+            -webkit-filter: drop-shadow(1px 2px 2px #fff);
+            filter: drop-shadow(1px 2px 2px #fff);
+            padding-top: 42px;
+            padding-bottom: 0;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .relation-stack {
+            margin: 28px auto 8px;
+        }
+
+        .stack-item {
+            min-height: 28px;
+            margin: 0 auto;
+            padding-top: 2px;
+        }
+
+        .stack-item.cycling {
+            position: relative;
+        }
+
+        .stack-item.cycling .phantom {
+            visibility: hidden;
+            display: block;
+            pointer-events: none;
+        }
+
+        #internet-changing {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .v-arrow {
+            margin: 2px auto;
+            user-select: none;
+            color: #333;
+            font-size: 9pt;
+            letter-spacing: 0.15em;
+            line-height: 1;
+        }
+
+        .shield-sim {
+            display: none;
+            position: relative;
+            width: 280px;
+            height: 210px;
+            margin: 18px auto 28px;
+            overflow: hidden;
+        }
+
+        .shield-sim canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .saga-anchor {
+            width: 100%;
+            text-align: center;
+            padding-bottom: 42px;
+        }
+
+        .saga-name {
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 18pt;
+            line-height: 28px;
+        }
+
+        .saga-copy {
+            font-size: 18pt;
+            line-height: 28px;
+            margin-bottom: 0;
+        }
+
+        .place {
+            margin-top: 0;
+        }
+
+        .waitlist-form {
+            float: clear;
+            margin: 0 auto 46px;
+            flex: 0 0 auto;
+            width: calc(100% - 40px);
+            max-width: 700px;
+            min-width: 300px;
+            padding: 15px 25px;
+            transition: all 0.35s ease;
+            background: rgba(255, 255, 255, 0.2);
+            border: 0px solid rgba(170, 170, 170, 0.1);
+            border-radius: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            box-shadow:
+                inset 0 2px 8px rgba(255, 255, 255, 0.2),
+                inset 0 2px 8px rgba(255, 255, 255, 0.2),
+                0 0 24px rgba(255, 255, 255, 0.9);
+        }
+
+        .form-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .form-inputs {
+            display: flex;
+            gap: 15px;
+            flex: 1;
+            max-width: 600px;
+            min-width: 300px;
+        }
+
+        .form-group {
+            flex: 1;
+            min-width: 0;
+        }
+
+        input[type="text"], input[type="tel"] {
+            width: 100%;
+            padding: 16px 16px;
+            border: 0px solid #aaa;
+            border-radius: 25px;
+            font-family: "Arial","Times New Roman", Times, serif;
+            font-size: 15px;
+            background: rgba(255, 255, 255, 0.7);
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+        }
+
+        input[type="text"]:focus, input[type="tel"]:focus {
+            outline: none;
+            border-color: #666;
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        input::placeholder {
+            color: #999;
+            font-style: normal;
+        }
+
+        .submit-btn {
+            background: #000;
+            color: #fff;
+            padding: 16px 24px;
+            border: 0px solid lightsteelblue;
+            border-radius: 25px;
+            font-family: "Arial", "Times New Roman", Times, serif;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            margin: 0;
+        }
+
+        .submit-btn:hover {
+            background: #eb3224;
+            color: #fff;
+            transform: translateY(1px);
+            box-shadow: 0 0 24px rgba(246, 69, 8, 0.42);
+        }
+
+        .zigzag {
+            color: red;
+            display: inline;
+            position: relative;
+        }
+
+        .zigzag:after {
+            content: '';
+            height: 6px;
+            width: 80%;
+            position: absolute;
+            background: url("https://i.imgur.com/Wy0FoyJ.png");
+            background-size: 10px;
+            top: 28px;
+            bottom: 0;
+            left: 10%;
+            animation: zigzagPlay 2s infinite linear;
+        }
+
+        @keyframes zigzagPlay {
+            0% { background-position: 0px; }
+            100% { background-position: -96px; }
+        }
+
+        @media (max-width: 599px) {
+            p {
+                min-width: unset;
+                width: 100%;
+                max-width: 100%;
+                padding-left: 5px;
+                padding-right: 5px;
+                margin-left: 0;
+                margin-right: 0;
+                word-spacing: -0.05em;
+            }
+
+            .main-container {
+                font-size: 14pt;
+                line-height: 24px;
+                padding: 0 5px;
+            }
+
+            .saga-name,
+            .saga-copy {
+                font-size: 14pt;
+                line-height: 24px;
+            }
+
+            .waitlist-form {
+                width: calc(100% - 10px);
+            }
+
+            img {
+                padding-top: 12px;
+                padding-bottom: 12px;
+            }
+
+            .shield-sim {
+                width: 230px;
+                height: 180px;
+                margin: 12px auto 22px;
+            }
+
+            .saga-copy {
+                line-height: 26px;
+            }
+
+            .zigzag:after {
+                top: 22px;
+            }
+
+            .waitlist-form {
+                padding: 15px 20px !important;
+            }
+
+            .form-content {
+                flex-direction: column !important;
+                gap: 8px !important;
+            }
+
+            .form-inputs {
+                flex-direction: column !important;
+                gap: 10px !important;
+                width: 100% !important;
+            }
+
+            .submit-btn {
+                width: 100% !important;
+                margin-top: 8px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-top">
+        <div class="main-container">
+            <img id="logo" src="public/opponent_logo_sm.png" width="96" alt="Opponent Systems"/>
+
+            <div class="relation-stack">
+                <p class="stack-item cycling"><span class="phantom" aria-hidden="true">The Internet</span><span id="internet-changing">The Internet</span></p>
+                <div class="v-arrow" aria-hidden="true">↑ ↓</div>
+                <p class="stack-item">Opponent Systems</p>
+                <div class="v-arrow" aria-hidden="true">↑ ↓</div>
+                <p class="stack-item">You</p>
+            </div>
+
+            <div class="shield-sim" id="shieldSim" aria-hidden="true"></div>
+        </div>
+
+        <div class="saga-anchor">
+            <p class="saga-copy">
+                We're building SAGA<br>
+                a super-observant sense-making organ<br>
+                loyal to you and who you are becoming.
+            </p>
+        </div>
+    </div>
+
+    <div class="waitlist-form">
+        <form id="waitlistForm" style="width: 100%;">
+            <div class="form-content">
+                <div class="form-inputs">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="phone" name="phone" placeholder="Phone number" required>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Join waitlist</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="page-bottom">
+        <div class="main-container">
+            <p class="place">Opponent Systems is founded by <a href="http://iancheng.com" target="blank">Ian&nbsp;Cheng</a> in NYC.</p>
+            <p><a href="mailto:ian@opponent.systems">ian@opponent.systems</a></p>
+        </div>
+        <div id="footer">
+            OPPONENT SYSTEMS 2026
+        </div>
+    </div>
+
+    <script>
+        const rotatingTexts = [
+            "The Internet",
+            "bots",
+            "agents",
+            "gov",
+            "platforms",
+            "For You",
+            "feeds",
+            "merchants",
+            "APIs"
+        ];
+
+        const HOLD_TIME = 3200;
+        const CHAR_REMOVE_DELAY = 20;
+        const CHAR_ADD_DELAY = 40;
+
+        let currentIndex = 0;
+        let isAnimating = false;
+        let currentLabel = rotatingTexts[0];
+
+        function animateTextChange(element, newText, callback) {
+            const currentText = element.textContent;
+            let removeIndex = currentText.length;
+
+            const removeInterval = setInterval(() => {
+                if (removeIndex > 0) {
+                    element.textContent = currentText.substring(0, removeIndex - 1);
+                    removeIndex--;
+                } else {
+                    clearInterval(removeInterval);
+
+                    let addIndex = 0;
+                    const addInterval = setInterval(() => {
+                        if (addIndex < newText.length) {
+                            element.textContent = newText.substring(0, addIndex + 1);
+                            addIndex++;
+                        } else {
+                            clearInterval(addInterval);
+                            if (callback) callback();
+                        }
+                    }, CHAR_ADD_DELAY);
+                }
+            }, CHAR_REMOVE_DELAY);
+        }
+
+        function cycleInternetText() {
+            if (isAnimating) return;
+            isAnimating = true;
+
+            const el = document.getElementById('internet-changing');
+            let nextIndex;
+            do {
+                nextIndex = Math.floor(Math.random() * rotatingTexts.length);
+            } while (nextIndex === currentIndex && rotatingTexts.length > 1);
+
+            currentIndex = nextIndex;
+            currentLabel = rotatingTexts[currentIndex];
+
+            animateTextChange(el, currentLabel, () => {
+                isAnimating = false;
+                setTimeout(cycleInternetText, HOLD_TIME);
+            });
+        }
+
+        const EMOJI_FOR = {
+            "The Internet": ["🌐", "💻", "📡", "👁"],
+            "bots": ["🤖"],
+            "agents": ["👾", "🕵️"],
+            "gov": ["🏛", "📋"],
+            "platforms": ["📱", "🟦"],
+            "For You": ["✨", "💫"],
+            "feeds": ["📰", "📜"],
+            "merchants": ["🛒", "💳"],
+            "APIs": ["⚡", "🔌"]
+        };
+
+        function startShieldSim() {
+            const host = document.getElementById('shieldSim');
+            const canvas = document.createElement('canvas');
+            host.appendChild(canvas);
+            const ctx = canvas.getContext('2d');
+
+            const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            let width = 0;
+            let height = 0;
+            let dpr = 1;
+            const particles = [];
+            const ripples = [];
+            let lastSpawn = 0;
+            let time = 0;
+
+            function resize() {
+                dpr = Math.min(window.devicePixelRatio || 1, 2);
+                width = host.clientWidth;
+                height = host.clientHeight;
+                canvas.width = Math.floor(width * dpr);
+                canvas.height = Math.floor(height * dpr);
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            }
+
+            function youPos() {
+                return { x: width / 2, y: height * 0.82 };
+            }
+
+            function shield() {
+                const you = youPos();
+                return {
+                    x: you.x,
+                    y: you.y - 8,
+                    r: Math.min(width, height) * 0.34
+                };
+            }
+
+            function spawnParticle() {
+                const set = EMOJI_FOR[currentLabel] || EMOJI_FOR["The Internet"];
+                const emoji = set[Math.floor(Math.random() * set.length)];
+                particles.push({
+                    emoji: emoji,
+                    x: width * 0.12 + Math.random() * width * 0.76,
+                    y: -18,
+                    vx: (Math.random() - 0.5) * 0.7,
+                    vy: 0.55 + Math.random() * 0.55,
+                    size: 20 + Math.random() * 6,
+                    life: 1,
+                    fading: false
+                });
+            }
+
+            function collide(p, s) {
+                const dx = p.x - s.x;
+                const dy = p.y - s.y;
+                const dist = Math.hypot(dx, dy);
+                if (dist < s.r + 8 && dy < 10) {
+                    const nx = dx / (dist || 1);
+                    const ny = dy / (dist || 1);
+                    const dot = p.vx * nx + p.vy * ny;
+                    if (dot < 0) {
+                        p.vx = (p.vx - 2 * dot * nx) * 1.05;
+                        p.vy = (p.vy - 2 * dot * ny) * 1.05;
+                        p.x = s.x + nx * (s.r + 9);
+                        p.y = s.y + ny * (s.r + 9);
+                        p.fading = true;
+                        ripples.push({ x: s.x, y: s.y, r: s.r, life: 1 });
+                    }
+                }
+            }
+
+            function drawShield(s, t) {
+                const pulse = 1 + Math.sin(t * 0.002) * 0.02;
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.r * pulse, Math.PI * 1.08, Math.PI * 1.92);
+                ctx.strokeStyle = 'rgba(176, 196, 222, 0.85)';
+                ctx.lineWidth = 2;
+                ctx.shadowColor = 'rgba(255, 255, 255, 0.9)';
+                ctx.shadowBlur = 10;
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.r * pulse - 5, Math.PI * 1.12, Math.PI * 1.88);
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.45)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            function drawYou(you) {
+                ctx.save();
+                ctx.font = '22px Times New Roman, serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('◎', you.x, you.y + 2);
+                ctx.restore();
+            }
+
+            function tick(now) {
+                if (!lastSpawn) lastSpawn = now;
+                time = now;
+                ctx.clearRect(0, 0, width, height);
+
+                const s = shield();
+                const you = youPos();
+
+                if (!reduced && now - lastSpawn > 520 && particles.length < 8) {
+                    spawnParticle();
+                    lastSpawn = now;
+                }
+
+                drawShield(s, now);
+
+                for (let i = ripples.length - 1; i >= 0; i--) {
+                    const r = ripples[i];
+                    r.life -= 0.04;
+                    ctx.beginPath();
+                    ctx.arc(r.x, r.y, r.r + (1 - r.life) * 14, Math.PI * 1.08, Math.PI * 1.92);
+                    ctx.strokeStyle = 'rgba(176, 196, 222,' + (r.life * 0.45) + ')';
+                    ctx.lineWidth = 1.5;
+                    ctx.stroke();
+                    if (r.life <= 0) ripples.splice(i, 1);
+                }
+
+                for (let i = particles.length - 1; i >= 0; i--) {
+                    const p = particles[i];
+                    if (!reduced) {
+                        p.x += p.vx;
+                        p.y += p.vy;
+                        p.vy += 0.008;
+                        collide(p, s);
+                    }
+                    if (p.fading) p.life -= 0.018;
+
+                    ctx.save();
+                    ctx.globalAlpha = Math.max(0, p.life);
+                    ctx.font = p.size + 'px serif';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(p.emoji, p.x, p.y);
+                    ctx.restore();
+
+                    if (p.life <= 0 || p.x < -40 || p.x > width + 40 || p.y > height + 30) {
+                        particles.splice(i, 1);
+                    }
+                }
+
+                drawYou(you);
+                requestAnimationFrame(tick);
+            }
+
+            resize();
+            window.addEventListener('resize', resize);
+
+            spawnParticle();
+            particles[0].x = width * 0.22;
+            particles[0].y = height * 0.16;
+            spawnParticle();
+            particles[1].x = width * 0.68;
+            particles[1].y = height * 0.08;
+            spawnParticle();
+            particles[2].x = width * 0.48;
+            particles[2].y = height * 0.02;
+
+            if (reduced) {
+                particles.forEach((p) => {
+                    p.vx = 0;
+                    p.vy = 0;
+                });
+            }
+
+            requestAnimationFrame(tick);
+        }
+
+        function validateName(name) {
+            const nameRegex = /^[a-zA-Z\s\-']{1,42}$/;
+            return nameRegex.test(name.trim());
+        }
+
+        function validatePhone(phone) {
+            const cleanPhone = phone.replace(/[^\d+]/g, '');
+
+            if (cleanPhone.startsWith('+')) {
+                const digitsAfterPlus = cleanPhone.substring(1);
+                if (!/^\d{10,15}$/.test(digitsAfterPlus)) {
+                    return { valid: false, message: 'International numbers should have 10-15 digits after the +' };
+                }
+                return { valid: true };
+            } else {
+                const digitsOnly = cleanPhone.replace(/\D/g, '');
+                if (digitsOnly.length === 10) {
+                    return { valid: true };
+                } else if (digitsOnly.length === 11 && digitsOnly.startsWith('1')) {
+                    return { valid: true };
+                } else if (digitsOnly.length < 10) {
+                    return { valid: false, message: 'US phone numbers need 10 digits' };
+                } else {
+                    return { valid: false, message: 'US phone numbers should be 10 digits (or 11 with country code 1)' };
+                }
+            }
+        }
+
+        function showSuccess() {
+            const formBox = document.querySelector('.waitlist-form');
+            formBox.innerHTML = `
+                <div style="text-align: center; padding: 20px 0;">
+                    <div style="font-size: 14pt; color: red; line-height: 26px;">
+                        <i>Dragon will be in touch soon.<br>Thank you!</i>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage') || document.createElement('div');
+            errorDiv.id = 'errorMessage';
+            errorDiv.style.cssText = `
+                 color: #ff0000;
+                font-size: 12pt;
+                text-align: center;
+                font-family: sans-serif;
+                position: fixed;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -25%);
+                max-width: calc(100vw - 60px);
+                min-width: 300px;
+                background: rgba(255,255,255,0.95);
+                padding: 12px 16px;
+                border-radius: 12px;
+                box-sizing: border-box;
+                word-wrap: break-word;
+                line-height: 1.4;
+                z-index: 2000;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+                border: 1px solid #ff0000;
+            `;
+            errorDiv.textContent = message;
+
+            const form = document.querySelector('.waitlist-form');
+            form.style.position = 'relative';
+            if (!document.getElementById('errorMessage')) {
+                form.appendChild(errorDiv);
+            }
+
+            setTimeout(() => {
+                if (errorDiv.parentNode) {
+                    errorDiv.parentNode.removeChild(errorDiv);
+                }
+            }, 4000);
+        }
+
+        function getDeviceInfo() {
+            const ua = navigator.userAgent || '';
+
+            let deviceType = 'Desktop';
+            if (/iPad|Android(?!.*Mobile)|Tablet/i.test(ua)) {
+                deviceType = 'Tablet';
+            } else if (/iPhone|iPod|Android.*Mobile|BlackBerry|Opera Mini|IEMobile/i.test(ua)) {
+                deviceType = 'Mobile';
+            }
+
+            let os = 'Unknown';
+            if (/iPhone|iPad|iPod/.test(ua)) os = 'iOS';
+            else if (/Android/.test(ua)) os = 'Android';
+            else if (/Windows/.test(ua)) os = 'Windows';
+            else if (/Mac/.test(ua)) os = 'macOS';
+            else if (/Linux/.test(ua)) os = 'Linux';
+
+            let timezone = 'Unknown';
+            try {
+                timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Unknown';
+            } catch (e) {
+                timezone = 'Unknown';
+            }
+
+            return {
+                deviceType: deviceType || 'Unknown',
+                os: os || 'Unknown',
+                timezone: timezone || 'Unknown'
+            };
+        }
+
+        async function submitToNotion(name, phone) {
+            const PROXY_URL = 'https://opponent.systems/.netlify/functions/submit-to-notion';
+            const deviceInfo = getDeviceInfo();
+
+            const data = {
+                name: name,
+                phone: phone,
+                timestamp: new Date().toLocaleString(),
+                source: "O.S Landing Page",
+                deviceType: deviceInfo.deviceType,
+                os: deviceInfo.os,
+                timezone: deviceInfo.timezone
+            };
+
+            const response = await fetch(PROXY_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+            }
+
+            return await response.json();
+        }
+
+        document.getElementById('waitlistForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const submitBtn = document.querySelector('.submit-btn');
+
+            const existingError = document.getElementById('errorMessage');
+            if (existingError) {
+                existingError.remove();
+            }
+
+            if (!name) {
+                showError('Please enter your name');
+                return;
+            }
+
+            if (!validateName(name)) {
+                showError('Name should only contain letters, spaces, hyphens, and apostrophes (max 42 characters)');
+                return;
+            }
+
+            if (!phone) {
+                showError('Please enter your phone number');
+                return;
+            }
+
+            const phoneValidation = validatePhone(phone);
+            if (!phoneValidation.valid) {
+                showError(phoneValidation.message);
+                return;
+            }
+
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Poking Dragon...';
+            submitBtn.disabled = true;
+
+            try {
+                await submitToNotion(name, phone);
+                showSuccess();
+            } catch (error) {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                showError('Sorry, there was an error submitting your information. Please try again.');
+                console.error('Submission error:', error);
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(cycleInternetText, HOLD_TIME + 800);
+            // startShieldSim();
+        });
+    </script>
+</body>
+</html>
