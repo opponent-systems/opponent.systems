@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dragon Time - Opponent Systems</title>
+    <title>Opponent Systems</title>
     <link rel="icon" type="image/png" href="public/opponent_logo_sm.png">
 
-  <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://opponent.systems/">
-    <meta property="twitter:title" content="Dragon Time - by Opponent Systems">
-    <meta property="twitter:description" content="It's Dragon Time Dragon Time Dragon Time!">
-    <meta property="twitter:image" content="https://opponent.systems/public/dragon_look.gif">
-    
+    <meta property="twitter:title" content="Opponent Systems">
+    <meta property="twitter:description" content="We're building SAGA, a super-observant sense-making organ, loyal to you and who you are becoming.">
+    <meta property="twitter:image" content="https://opponent.systems/public/opponent_logo_sm.png">
 
     <style>
         body {
@@ -27,7 +26,6 @@
             position: relative;
         }
 
-        /* Subtle white inner-edge glow (like logo drop-shadow) */
         body::after {
             content: '';
             position: fixed;
@@ -50,146 +48,33 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
-            padding-bottom: 40px;
             box-sizing: border-box;
-            flex: 1;
         }
 
-        .video-container {
-            max-width: 560px;
-            margin: 20px auto 30px auto;
-            border-radius: 12px;
-            overflow: hidden;
-            background: #ddd;
+        .page-top,
+        .page-bottom {
+            flex: 1 1 0;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 280px;
-            color: #666;
-            font-size: 16px;
-            border: 2px solid #999;
-        }
-
-        .video-container iframe {
             width: 100%;
-            height: 280px;
-            border: none;
         }
 
-        @media (max-width: 599px) {
-           p {
-                min-width: unset; /* Remove fixed min-width on mobile */
-                width: 100%; /* Use full available width */
-                max-width: 100%;
-                padding-left: 5px;
-                padding-right: 5px;
-                margin-left: 0;
-                margin-right: 0;
-                word-spacing: -0.05em; 
-            }
-            .video-container {
-                max-width: 90%;
-                margin: 15px auto 25px auto;
-                height: 200px;
-            }
-            
-            .video-container iframe {
-                height: 200px;
-            }
-            
-            .main-container {
-                font-size: 14pt;
-                line-height: 24px;
-                padding: 0 5px; /* Reduce side padding on mobile */
-            }
-            
-            img {
-                padding-top: 12px;
-                padding-bottom: 12px;
-            }
-            
-            .main-container:hover p {
-                opacity: 1;
-                transform: none;
-            }
-            
-            .main-container p:hover {
-                opacity: 1;
-                transform: none;
-                z-index: auto;
-            }
-            
-            .waitlist-form {
-                padding: 15px 20px !important;
-            }
-            
-            .form-content {
-                flex-direction: column !important;
-                gap: 8px !important;
-            }
-            
-            .form-inputs {
-                flex-direction: column !important;
-                gap: 10px !important;
-                width: 100% !important;
-            }
-            
-            .submit-btn {
-                width: 100% !important;
-                margin-top: 8px !important;
-            }
+        .page-top {
+            justify-content: space-between;
         }
 
-        @media (min-width: 600px) {
-            p {
-              min-width: 336px; /* Keep min-width for desktop */
-            }
-
-            .main-container p {
-                opacity: 1;
-                transform: scale(1);
-                transition: all 0.5s ease;
-            }
-            
-            .main-container p:hover {
-                opacity: 1;
-                transform: scale(1);
-            }
-            
-            .main-container p:hover ~ p {
-                opacity: 0.5;
-                transform: scale(0.98);
-            }
-            
-            .main-container p:has(~ p:hover) {
-                opacity: 0.5;
-                transform: scale(0.98);
-            }
+        .page-bottom {
+            justify-content: space-between;
         }
 
         p {
-            clear: both; /* Changed from float: clear */
+            clear: both;
             margin: 5px auto;
             max-width: 95%;
-            padding-top: 6px;
-            padding-left: 10px;
-            padding-right: 10px;
-            transition: all 0.5s ease;
+            padding: 6px 10px 0;
             text-align: center;
-            box-sizing: border-box; /* Added for better box model */
-        }
-
-        #tagline {
-            text-align: center;
-            color: #fff;
-            font-size: 42pt;
-            transform: scaleY(1.56);
-        }
-
-        #newstag {
-            color: blue;
-            /*font-size: 42pt;*/
-            
+            box-sizing: border-box;
         }
 
         #footer {
@@ -219,27 +104,96 @@
             color: white;
         }
 
-        strong {
-            font-family: 'times new roman', serif;
-            color: black;
-            text-shadow: 0 0 .8em lightsteelblue;
-        }
-
         img {
             -webkit-filter: drop-shadow(1px 2px 2px #fff);
             filter: drop-shadow(1px 2px 2px #fff);
             padding-top: 42px;
-            padding-bottom: 0px;
+            padding-bottom: 0;
             display: block;
             margin-left: auto;
             margin-right: auto;
         }
 
-        /* Updated waitlist form styles for horizontal layout */
+        .relation-stack {
+            margin: 28px auto 8px;
+        }
+
+        .stack-item {
+            min-height: 28px;
+            margin: 0 auto;
+            padding-top: 2px;
+        }
+
+        .stack-item.cycling {
+            position: relative;
+        }
+
+        .stack-item.cycling .phantom {
+            visibility: hidden;
+            display: block;
+            pointer-events: none;
+        }
+
+        #internet-changing {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .v-arrow {
+            margin: 2px auto;
+            user-select: none;
+            color: #333;
+            font-size: 9pt;
+            letter-spacing: 0.15em;
+            line-height: 1;
+        }
+
+        .shield-sim {
+            display: none;
+            position: relative;
+            width: 280px;
+            height: 210px;
+            margin: 18px auto 28px;
+            overflow: hidden;
+        }
+
+        .shield-sim canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .saga-anchor {
+            width: 100%;
+            text-align: center;
+            padding-bottom: 42px;
+        }
+
+        .saga-name {
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 18pt;
+            line-height: 28px;
+        }
+
+        .saga-copy {
+            font-size: 18pt;
+            line-height: 28px;
+            margin-bottom: 0;
+        }
+
+        .place {
+            margin-top: 0;
+        }
+
         .waitlist-form {
             float: clear;
-            margin: 50px auto;
-            width: 100%;
+            margin: 0 auto 46px;
+            flex: 0 0 auto;
+            width: calc(100% - 40px);
             max-width: 700px;
             min-width: 300px;
             padding: 15px 25px;
@@ -251,7 +205,7 @@
             align-items: center;
             justify-content: center;
             box-sizing: border-box;
-            box-shadow: 
+            box-shadow:
                 inset 0 2px 8px rgba(255, 255, 255, 0.2),
                 inset 0 2px 8px rgba(255, 255, 255, 0.2),
                 0 0 24px rgba(255, 255, 255, 0.9);
@@ -265,22 +219,12 @@
             max-width: 1000px;
         }
 
-        .waitlist-subtitle {
-            font-size: 16pt;
-            color: #333;
-            margin: 0;
-            line-height: 1;
-            white-space: nowrap;
-            font-weight: normal;
-        }
-
         .form-inputs {
             display: flex;
             gap: 15px;
             flex: 1;
             max-width: 600px;
             min-width: 300px;
-
         }
 
         .form-group {
@@ -298,7 +242,6 @@
             background: rgba(255, 255, 255, 0.7);
             box-sizing: border-box;
             transition: all 0.2s ease;
-
         }
 
         input[type="text"]:focus, input[type="tel"]:focus {
@@ -325,8 +268,6 @@
             transition: all 0.2s ease;
             white-space: nowrap;
             margin: 0;
-
-
         }
 
         .submit-btn:hover {
@@ -336,411 +277,461 @@
             box-shadow: 0 0 24px rgba(246, 69, 8, 0.42);
         }
 
-        /* Video preview box styles */
-.video-preview-box {
-    float: clear;
-    margin: 30px auto;
-    width: 100%;
-    max-width: 420px;
-    min-width: 250px;
-    padding: 0;
-    background: #000;
-    border: 0px solid rgba(255, 255, 255, 0.4);
-    border-radius: 16px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: center;
-    box-sizing: border-box;
-    box-shadow: 
-        inset 0 1px 4px rgba(255, 255, 255, 0.3),
-        0 2px 12px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    position: relative;
-    aspect-ratio: 16/9;
-    -webkit-mask-image: -webkit-radial-gradient(white, black); /* Force hardware acceleration on iOS */
-    mask-image: radial-gradient(white, black);
-}
+        .zigzag {
+            color: red;
+            display: inline;
+            position: relative;
+        }
 
-.video-thumbnail {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    transition: all 0.3s ease;
-    pointer-events: none;
-    display: block;
-    margin: 0;
-    padding: 0;
-    vertical-align: top;
-    border-radius: 16px; /* Match parent border-radius */
-   animation-play-state: paused; /* Freeze the GIF */
+        .zigzag:after {
+            content: '';
+            height: 6px;
+            width: 80%;
+            position: absolute;
+            background: url("https://i.imgur.com/Wy0FoyJ.png");
+            background-size: 10px;
+            top: 28px;
+            bottom: 0;
+            left: 10%;
+            animation: zigzagPlay 2s infinite linear;
+        }
 
-}
+        @keyframes zigzagPlay {
+            0% { background-position: 0px; }
+            100% { background-position: -96px; }
+        }
 
-.video-preview-box:hover .video-thumbnail,
-.video-preview-box.hover-active .video-thumbnail {
-    transform: scale(1.05);
-    animation-play-state: running; /* Play GIF on hover */
-}
+        @media (max-width: 599px) {
+            p {
+                min-width: unset;
+                width: 100%;
+                max-width: 100%;
+                padding-left: 5px;
+                padding-right: 5px;
+                margin-left: 0;
+                margin-right: 0;
+                word-spacing: -0.05em;
+            }
 
-.video-preview-content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.12);
-    transition: all 0.3s ease;
-    pointer-events: none; /* Allow clicks to pass through */
-}
+            .main-container {
+                font-size: 14pt;
+                line-height: 24px;
+                padding: 0 5px;
+            }
 
-.video-preview-box:hover .video-preview-content {
-    background: rgba(0, 0, 0, 0.2);
-}
+            .saga-name,
+            .saga-copy {
+                font-size: 14pt;
+                line-height: 24px;
+            }
 
-.play-icon {
-    width: 120px;
-    height: 120px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    background: none; /* Remove circle background */
-    border-radius: 0; /* Remove border radius */
-    pointer-events: none;
-    border-radius: 4px; /* Add slight rounding to corners */
+            .waitlist-form {
+                width: calc(100% - 10px);
+            }
 
-}
+            img {
+                padding-top: 12px;
+                padding-bottom: 12px;
+            }
 
-.video-preview-box:hover .play-icon {
-    background: none; /* Keep no background on hover */
-    transform: scale(1.2); /* Slightly larger scale on hover */
-}
+            .shield-sim {
+                width: 230px;
+                height: 180px;
+                margin: 12px auto 22px;
+            }
 
+            .saga-copy {
+                line-height: 26px;
+            }
 
-.video-preview-box:hover .play-icon {
-    background: none;
-    transform: scale(1.2);
-}
+            .zigzag:after {
+                top: 22px;
+            }
 
-.play-icon::after {
-    content: '';
-    width: 0;
-    height: 0;
-    border-left: 28px solid #fff;
-    border-top: 16px solid transparent;
-    border-bottom: 16px solid transparent;
-    margin-left: 6px;
-    transition: all 0.3s ease;
-    pointer-events: none;
-    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
-    border-radius: 4px; /* Add slight rounding to corners */
+            .waitlist-form {
+                padding: 15px 20px !important;
+            }
 
-}
+            .form-content {
+                flex-direction: column !important;
+                gap: 8px !important;
+            }
 
-.video-preview-box:hover .play-icon::after {
-    border-left-color: #fff;
-    filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.7));
-}
+            .form-inputs {
+                flex-direction: column !important;
+                gap: 10px !important;
+                width: 100% !important;
+            }
 
-@media (max-width: 599px) {
-    .video-preview-box {
-        margin: 20px auto;
-        max-width: 90%;
-    }
-    
-    .play-icon {
-        width: 65px;
-        height: 65px;
-    }
-    
-    .play-icon::after {
-        border-left: 22px solid #fff;
-        border-top: 13px solid transparent;
-        border-bottom: 13px solid transparent;
-    }
-    
-    .video-preview-box:hover .play-icon::after {
-        border-left-color: #fff;
-    }
-}
-
-/* Video overlay styles */
-.video-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.0);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    z-index: 1000;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    animation: fadeIn 0.3s ease;
-}
-
-.video-overlay.show {
-    display: flex !important;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-.video-overlay-content {
-    position: relative;
-    width: 60vw;
-    max-width: 400px;
-    height: calc(60vw * 4/3);
-    max-height: calc(400px * 4/3);
-    background: #000;
-    border-radius: 12px;
-    overflow: hidden;
-   /* box-shadow: 
-      0 20px 60px rgba(0, 0, 0, 0.5),
-      0 0 5px 3px rgba(0, 0, 0, 1),
-      0 0 15px 8px rgba(0, 0, 0, 0.9),
-      0 0 30px 15px rgba(0, 0, 0, 0.7),
-      0 0 50px 25px rgba(0, 0, 0, 0.5);*/
-}
-
-.video-overlay iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-
-.close-button {
-    position: absolute;
-    top: -50px;
-    right: 0;
-    background: rgba(255, 255, 255, 0.9);
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    color: #333;
-    transition: all 0.2s ease;
-    z-index: 1001;
-}
-
-.close-button:hover {
-    background: #fff;
-    transform: scale(1.1);
-}
-
-/* Blur the main content when overlay is active */
-body.overlay-active .main-container,
-body.overlay-active #footer {
-    filter: blur(4px);
-    transition: filter 0.3s ease;
-}
-
-@media (max-width: 599px) {
-    .video-overlay-content {
-        width: 70vw;
-        height: calc(70vw * 4/3); /* 3:4 aspect ratio */
-    }
-    
-    .close-button {
-        top: -40px;
-        width: 35px;
-        height: 35px;
-        font-size: 18px;
-    }
-}
-
-/* squiggly line*/
-  .zigzag {
-  color:red;
-  display: inline;
-  position: relative;
- }
-
-.zigzag:after {
-  content: '';
-  height: 6px;
-  width: 80%; /* Use percentage of parent */
-  position: absolute;
-  background: url("https://i.imgur.com/Wy0FoyJ.png");
-  background-size: 10px;
-  top: 28px;
-  bottom: 0px;
-  left: 10%; /* Center it horizontally */
-  -webkit-animation: zigzagPlay 2s infinite linear;
-  -moz-animation: zigzagPlay 2s infinite linear;
-  -ms-animation: zigzagPlay 2s infinite linear;
-  -o-animation: zigzagPlay 2s infinite linear;
-  animation: zigzagPlay 2s infinite linear;
-  -webkit-animation-play-state: running;
-  -moz-animation-play-state: running;
-  -o-animation-play-state: running;
-  animation-play-state: running;
-}
-
-/*.zigzag:hover:after {
-  -webkit-animation-play-state: running;
-  -moz-animation-play-state: running;
-  -o-animation-play-state: running;
-  animation-play-state: running;
-}
-*/
-
-@-webkit-keyframes zigzagPlay {
-  0% {
-    background-position: 0px;
-  }
-  100% {
-    background-position: -96px;
-  }
-}
-
-@-moz-keyframes zigzagPlay {
-  0% {
-    background-position: 0px;
-  }
-  100% {
-    background-position: -96px;
-  }
-}
-
-@-ms-keyframes zigzagPlay {
-  0% {
-    background-position: 0px;
-  }
-  100% {
-    background-position: -96px;
-  }
-}
-
-@-o-keyframes zigzagPlay {
-  0% {
-    background-position: 0px;
-  }
-  100% {
-    background-position: -96px;
-  }
-}
-
-@keyframes zigzagPlay {
-  0% {
-    background-position: 0px;
-  }
-  100% {
-    background-position: -96px;
-  }
-}
-
-
+            .submit-btn {
+                width: 100% !important;
+                margin-top: 8px !important;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="main-container">
-        
-           
-       <!--  <div class="video-container">
-           <iframe width="560" height="815" src="https://www.youtube.com/embed/eW3hGdnwxZY?si=18nnwjDrUd8kmfu7" title="YouTube video player" frameborder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </div> -->
+    <div class="page-top">
+        <div class="main-container">
+            <img id="logo" src="public/opponent_logo_sm.png" width="96" alt="Opponent Systems"/>
 
-        <img id="logo" src='public/opponent_logo_sm.png' width="96px"/>
+            <div class="relation-stack">
+                <p class="stack-item cycling"><span class="phantom" aria-hidden="true">🍷 Elite Preferences 🍷</span><span id="internet-changing">🌐 The Internet 🌐</span></p>
+                <div class="v-arrow" aria-hidden="true">↑ ↓</div>
+                <p class="stack-item">Opponent Systems</p>
+                <div class="v-arrow" aria-hidden="true">↑ ↓</div>
+                <p class="stack-item">You</p>
+            </div>
 
-        <p>SAGA</p>
-        <p> </p>
-      <!--   <p><i><span id="kids-changing">Play time</span> kids need.<br><span id="parents-changing">Away time</span> parents want.</i></p>
-        <p> </p> -->
-        <p><i>Your mom, called.</i></p>
-        <p> </p>
-        <p>No group chats. No photo dumps. No apps.<br> Just your whole family in the loop.</p>
-        <p> </p>
-        <p class="zigzag"><i>* Demoing now on FaceTime *</i></p>
-        
-        <div class="waitlist-form">
-            <form id="waitlistForm" style="width: 100%;">
-                <div class="form-content">
-                    <div class="form-inputs">
-                        <div class="form-group">
-                            <input type="text" id="name" name="name" placeholder="Your name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="tel" id="phone" name="phone" placeholder="Phone number" required>
-                        </div>
-                    </div>
-                    
-                    <button type="submit" class="submit-btn">Join waitlist</button>
-                </div>
-            </form>
+            <div class="shield-sim" id="shieldSim" aria-hidden="true"></div>
         </div>
-        
-<!-- <div class="video-preview-box" onclick="openVideoOverlay()">
-    <img src="public/dragon_look.jpg" alt="Video thumbnail" class="video-thumbnail">
-    <div class="video-preview-content">
-        <div class="play-icon"></div>
-    </div>
-</div> -->
-        
-        <p> </p>
-        <p>Opponent Systems is founded by <a href="http://iancheng.com" target="blank">Ian&nbsp;Cheng</a>. 
-          <br>We're building SAGA – your house spirit 
-          <br>who links the generations and enriches
-          <br>family intelligence.
-        </p>
-        <p> </p>
-        <p><a href="mailto:ian@opponent.systems">ian@opponent.systems</a></p>
-<!--         <br><a href="https://x.com/OpponentAI" target="blank">@OpponentAI</a>
- -->
+
+        <div class="saga-anchor">
+            <p class="saga-copy">
+                We're building SAGA<br>
+                a super-observant sense-making organ<br>
+                loyal to you and who you are becoming.
+            </p>
+        </div>
     </div>
 
-    <!-- Video Overlay -->
-<div class="video-overlay" id="videoOverlay" onclick="closeVideoOverlay(event)">
-    <div class="video-overlay-content">
-        <button class="close-button" onclick="closeVideoOverlay()">&times;</button>
-            <iframe id="videoIframe" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <div class="waitlist-form">
+        <form id="waitlistForm" style="width: 100%;">
+            <div class="form-content">
+                <div class="form-inputs">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="phone" name="phone" placeholder="Phone number" required>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Join waitlist</button>
+            </div>
+        </form>
     </div>
-</div>
 
-    <div id="footer">
-        OPPONENT SYSTEMS 2026
+    <div class="page-bottom">
+        <div id="footer">
+            👋&nbsp;<a href="mailto:ian@opponent.systems">ian@opponent.systems</a>&nbsp;| OPPONENT SYSTEMS 2026
+        </div>
     </div>
 
-     <script>
+    <script>
+        const rotatingTexts = [
+            "The Internet",
+            "Bots",
+            "Agents",
+            "News",
+            "For You",
+            "Feeds",
+            "The Office",
+            "The University",
+            "Low Frequency",
+            "Demons",
+            "Clones",
+            "False Light",
+            "Elite Preferences",
+            // "Micro Plastics",
+            "Cults",
+            "Rumination", 
+            "Mind Killers",
+            "Life Scripts",
+        ];
+
+        const HOLD_TIME = 3200;
+        const CHAR_REMOVE_DELAY = 20;
+        const CHAR_ADD_DELAY = 40;
+
+        const EMOJI_FOR = {
+            "The Internet": ["🌐"],
+            "Bots": ["🤖"],
+            "Agents": ["👾"],
+            "News": ["📰"],
+            "For You": ["🍯"],
+            "Feeds": ["⛓️"],
+            "The Office": ["📎"],
+            "The University": ["🎓"],
+            "Low Frequency": ["📉"],
+            "Demons": ["👹"],
+            "Clones": ["👥"],
+            "False Light": ["✨"],
+            "Elite Preferences": ["🍷"],
+            // "Micro Plastics": ["🧬"],
+            "Cults": ["🕯"],
+            "Rumination": ["🔁"],
+            "Mind Killers": ["⚫"],
+            "Life Scripts": ["📜"]
+        };
+
+        function labelWithEmoji(text) {
+            const emoji = (EMOJI_FOR[text] && EMOJI_FOR[text][0]) || '';
+            return emoji ? emoji + ' ' + text + ' ' + emoji : text;
+        }
+
+        let currentIndex = 0;
+        let isAnimating = false;
+        let currentLabel = rotatingTexts[0];
+        const weights = rotatingTexts.map(() => 1);
+
+        function pickWeightedIndex() {
+            let total = 0;
+            for (let i = 0; i < weights.length; i++) {
+                if (i === currentIndex) continue;
+                total += weights[i];
+            }
+
+            let roll = Math.random() * total;
+            for (let i = 0; i < weights.length; i++) {
+                if (i === currentIndex) continue;
+                roll -= weights[i];
+                if (roll <= 0) return i;
+            }
+
+            return (currentIndex + 1) % weights.length;
+        }
+
+        function afterPick(index) {
+            for (let i = 0; i < weights.length; i++) {
+                // Double each miss so neglected terms get hungry fast;
+                // reset the winner so it stays cold for a while.
+                weights[i] = (i === index) ? 1 : weights[i] * 2;
+            }
+        }
+
+        function animateTextChange(element, newText, callback) {
+            const currentChars = Array.from(element.textContent);
+            const nextChars = Array.from(newText);
+            let removeIndex = currentChars.length;
+
+            const removeInterval = setInterval(() => {
+                if (removeIndex > 0) {
+                    removeIndex--;
+                    element.textContent = currentChars.slice(0, removeIndex).join('');
+                } else {
+                    clearInterval(removeInterval);
+
+                    let addIndex = 0;
+                    const addInterval = setInterval(() => {
+                        if (addIndex < nextChars.length) {
+                            addIndex++;
+                            element.textContent = nextChars.slice(0, addIndex).join('');
+                        } else {
+                            clearInterval(addInterval);
+                            if (callback) callback();
+                        }
+                    }, CHAR_ADD_DELAY);
+                }
+            }, CHAR_REMOVE_DELAY);
+        }
+
+        function cycleInternetText() {
+            if (isAnimating) return;
+            isAnimating = true;
+
+            const el = document.getElementById('internet-changing');
+            const nextIndex = pickWeightedIndex();
+            afterPick(nextIndex);
+
+            currentIndex = nextIndex;
+            currentLabel = rotatingTexts[currentIndex];
+
+            animateTextChange(el, labelWithEmoji(currentLabel), () => {
+                isAnimating = false;
+                setTimeout(cycleInternetText, HOLD_TIME);
+            });
+        }
+
+        function startShieldSim() {
+            const host = document.getElementById('shieldSim');
+            const canvas = document.createElement('canvas');
+            host.appendChild(canvas);
+            const ctx = canvas.getContext('2d');
+
+            const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            let width = 0;
+            let height = 0;
+            let dpr = 1;
+            const particles = [];
+            const ripples = [];
+            let lastSpawn = 0;
+            let time = 0;
+
+            function resize() {
+                dpr = Math.min(window.devicePixelRatio || 1, 2);
+                width = host.clientWidth;
+                height = host.clientHeight;
+                canvas.width = Math.floor(width * dpr);
+                canvas.height = Math.floor(height * dpr);
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            }
+
+            function youPos() {
+                return { x: width / 2, y: height * 0.82 };
+            }
+
+            function shield() {
+                const you = youPos();
+                return {
+                    x: you.x,
+                    y: you.y - 8,
+                    r: Math.min(width, height) * 0.34
+                };
+            }
+
+            function spawnParticle() {
+                const set = EMOJI_FOR[currentLabel] || EMOJI_FOR["The Internet"];
+                const emoji = set[Math.floor(Math.random() * set.length)];
+                particles.push({
+                    emoji: emoji,
+                    x: width * 0.12 + Math.random() * width * 0.76,
+                    y: -18,
+                    vx: (Math.random() - 0.5) * 0.7,
+                    vy: 0.55 + Math.random() * 0.55,
+                    size: 20 + Math.random() * 6,
+                    life: 1,
+                    fading: false
+                });
+            }
+
+            function collide(p, s) {
+                const dx = p.x - s.x;
+                const dy = p.y - s.y;
+                const dist = Math.hypot(dx, dy);
+                if (dist < s.r + 8 && dy < 10) {
+                    const nx = dx / (dist || 1);
+                    const ny = dy / (dist || 1);
+                    const dot = p.vx * nx + p.vy * ny;
+                    if (dot < 0) {
+                        p.vx = (p.vx - 2 * dot * nx) * 1.05;
+                        p.vy = (p.vy - 2 * dot * ny) * 1.05;
+                        p.x = s.x + nx * (s.r + 9);
+                        p.y = s.y + ny * (s.r + 9);
+                        p.fading = true;
+                        ripples.push({ x: s.x, y: s.y, r: s.r, life: 1 });
+                    }
+                }
+            }
+
+            function drawShield(s, t) {
+                const pulse = 1 + Math.sin(t * 0.002) * 0.02;
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.r * pulse, Math.PI * 1.08, Math.PI * 1.92);
+                ctx.strokeStyle = 'rgba(176, 196, 222, 0.85)';
+                ctx.lineWidth = 2;
+                ctx.shadowColor = 'rgba(255, 255, 255, 0.9)';
+                ctx.shadowBlur = 10;
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.r * pulse - 5, Math.PI * 1.12, Math.PI * 1.88);
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.45)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            function drawYou(you) {
+                ctx.save();
+                ctx.font = '22px Times New Roman, serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('◎', you.x, you.y + 2);
+                ctx.restore();
+            }
+
+            function tick(now) {
+                if (!lastSpawn) lastSpawn = now;
+                time = now;
+                ctx.clearRect(0, 0, width, height);
+
+                const s = shield();
+                const you = youPos();
+
+                if (!reduced && now - lastSpawn > 520 && particles.length < 8) {
+                    spawnParticle();
+                    lastSpawn = now;
+                }
+
+                drawShield(s, now);
+
+                for (let i = ripples.length - 1; i >= 0; i--) {
+                    const r = ripples[i];
+                    r.life -= 0.04;
+                    ctx.beginPath();
+                    ctx.arc(r.x, r.y, r.r + (1 - r.life) * 14, Math.PI * 1.08, Math.PI * 1.92);
+                    ctx.strokeStyle = 'rgba(176, 196, 222,' + (r.life * 0.45) + ')';
+                    ctx.lineWidth = 1.5;
+                    ctx.stroke();
+                    if (r.life <= 0) ripples.splice(i, 1);
+                }
+
+                for (let i = particles.length - 1; i >= 0; i--) {
+                    const p = particles[i];
+                    if (!reduced) {
+                        p.x += p.vx;
+                        p.y += p.vy;
+                        p.vy += 0.008;
+                        collide(p, s);
+                    }
+                    if (p.fading) p.life -= 0.018;
+
+                    ctx.save();
+                    ctx.globalAlpha = Math.max(0, p.life);
+                    ctx.font = p.size + 'px serif';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(p.emoji, p.x, p.y);
+                    ctx.restore();
+
+                    if (p.life <= 0 || p.x < -40 || p.x > width + 40 || p.y > height + 30) {
+                        particles.splice(i, 1);
+                    }
+                }
+
+                drawYou(you);
+                requestAnimationFrame(tick);
+            }
+
+            resize();
+            window.addEventListener('resize', resize);
+
+            spawnParticle();
+            particles[0].x = width * 0.22;
+            particles[0].y = height * 0.16;
+            spawnParticle();
+            particles[1].x = width * 0.68;
+            particles[1].y = height * 0.08;
+            spawnParticle();
+            particles[2].x = width * 0.48;
+            particles[2].y = height * 0.02;
+
+            if (reduced) {
+                particles.forEach((p) => {
+                    p.vx = 0;
+                    p.vy = 0;
+                });
+            }
+
+            requestAnimationFrame(tick);
+        }
+
         function validateName(name) {
             const nameRegex = /^[a-zA-Z\s\-']{1,42}$/;
             return nameRegex.test(name.trim());
         }
 
         function validatePhone(phone) {
-            // Remove all non-digit characters except + at the beginning
             const cleanPhone = phone.replace(/[^\d+]/g, '');
-            
-            // Check if it starts with + (international format)
+
             if (cleanPhone.startsWith('+')) {
-                // International format: +1234567890 (10-15 digits after +)
                 const digitsAfterPlus = cleanPhone.substring(1);
                 if (!/^\d{10,15}$/.test(digitsAfterPlus)) {
                     return { valid: false, message: 'International numbers should have 10-15 digits after the +' };
                 }
                 return { valid: true };
             } else {
-                // US/Canada format: exactly 10 digits (without country code) or 11 with country code
                 const digitsOnly = cleanPhone.replace(/\D/g, '');
                 if (digitsOnly.length === 10) {
                     return { valid: true };
@@ -769,19 +760,19 @@ body.overlay-active #footer {
             const errorDiv = document.getElementById('errorMessage') || document.createElement('div');
             errorDiv.id = 'errorMessage';
             errorDiv.style.cssText = `
-                 color: #ff0000; 
-                font-size: 12pt; 
-                text-align: center; 
-                font-family: sans-serif; 
-                position: fixed; 
-                left: 50%; 
+                 color: #ff0000;
+                font-size: 12pt;
+                text-align: center;
+                font-family: sans-serif;
+                position: fixed;
+                left: 50%;
                 top: 50%;
-                transform: translate(-50%, -25%); 
+                transform: translate(-50%, -25%);
                 max-width: calc(100vw - 60px);
                 min-width: 300px;
-                background: rgba(255,255,255,0.95); 
-                padding: 12px 16px; 
-                border-radius: 12px; 
+                background: rgba(255,255,255,0.95);
+                padding: 12px 16px;
+                border-radius: 12px;
                 box-sizing: border-box;
                 word-wrap: break-word;
                 line-height: 1.4;
@@ -806,31 +797,28 @@ body.overlay-active #footer {
 
         function getDeviceInfo() {
             const ua = navigator.userAgent || '';
-            
-            // Detect device type
+
             let deviceType = 'Desktop';
             if (/iPad|Android(?!.*Mobile)|Tablet/i.test(ua)) {
                 deviceType = 'Tablet';
             } else if (/iPhone|iPod|Android.*Mobile|BlackBerry|Opera Mini|IEMobile/i.test(ua)) {
                 deviceType = 'Mobile';
             }
-            
-            // Detect OS
+
             let os = 'Unknown';
             if (/iPhone|iPad|iPod/.test(ua)) os = 'iOS';
             else if (/Android/.test(ua)) os = 'Android';
             else if (/Windows/.test(ua)) os = 'Windows';
             else if (/Mac/.test(ua)) os = 'macOS';
             else if (/Linux/.test(ua)) os = 'Linux';
-            
-            // Get timezone with fallback
+
             let timezone = 'Unknown';
             try {
                 timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Unknown';
             } catch (e) {
                 timezone = 'Unknown';
             }
-            
+
             return {
                 deviceType: deviceType || 'Unknown',
                 os: os || 'Unknown',
@@ -839,11 +827,9 @@ body.overlay-active #footer {
         }
 
         async function submitToNotion(name, phone) {
-            // Replace this URL with your actual Netlify site URL
             const PROXY_URL = 'https://opponent.systems/.netlify/functions/submit-to-notion';
-            
             const deviceInfo = getDeviceInfo();
-            
+
             const data = {
                 name: name,
                 phone: phone,
@@ -853,274 +839,75 @@ body.overlay-active #footer {
                 os: deviceInfo.os,
                 timezone: deviceInfo.timezone
             };
-            
-            try {
-                const response = await fetch(PROXY_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
-                });
-                
-                console.log('Response status:', response.status);
-                console.log('Response headers:', response.headers);
-                
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    console.error('Error response:', errorText);
-                    throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
-                }
-                
-                const result = await response.json();
-                console.log('Success response:', result);
-                return result;
-            } catch (error) {
-                console.error('Error submitting to Notion:', error);
-                throw error;
+
+            const response = await fetch(PROXY_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
             }
+
+            return await response.json();
         }
 
         document.getElementById('waitlistForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
+
             const name = document.getElementById('name').value.trim();
             const phone = document.getElementById('phone').value.trim();
             const submitBtn = document.querySelector('.submit-btn');
-            
+
             const existingError = document.getElementById('errorMessage');
             if (existingError) {
                 existingError.remove();
             }
-            
+
             if (!name) {
                 showError('Please enter your name');
                 return;
             }
-            
+
             if (!validateName(name)) {
                 showError('Name should only contain letters, spaces, hyphens, and apostrophes (max 42 characters)');
                 return;
             }
-            
+
             if (!phone) {
                 showError('Please enter your phone number');
                 return;
             }
-            
+
             const phoneValidation = validatePhone(phone);
             if (!phoneValidation.valid) {
                 showError(phoneValidation.message);
                 return;
             }
-            
-            // Show loading state
+
             const originalText = submitBtn.textContent;
             submitBtn.textContent = 'Poking Dragon...';
             submitBtn.disabled = true;
-            
+
             try {
                 await submitToNotion(name, phone);
                 showSuccess();
             } catch (error) {
-                // Restore button state
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
-                
                 showError('Sorry, there was an error submitting your information. Please try again.');
                 console.error('Submission error:', error);
             }
         });
 
- // Video overlay functions
-function openVideoOverlay() {
-    const overlay = document.getElementById('videoOverlay');
-    const iframe = document.getElementById('videoIframe');
-    
-    // Set the YouTube Shorts URL - note the /embed/ format
-    iframe.src = "https://www.youtube.com/embed/KSpQ520cXzM?autoplay=1&modestbranding=1&showinfo=0&rel=0&controls=1";
-    
-    overlay.classList.add('show');
-    document.body.classList.add('overlay-active');
-    
-    // Prevent body scrolling
-    document.body.style.overflow = 'hidden';
-}
-
-function closeVideoOverlay(event) {
-    // Close if clicking on overlay background, close button, or if no event (escape key, etc.)
-    if (!event || 
-        event.target.id === 'videoOverlay' || 
-        event.target.classList.contains('close-button') ||
-        event.target.textContent === '×') {
-        
-        const overlay = document.getElementById('videoOverlay');
-        const iframe = document.getElementById('videoIframe');
-        
-        overlay.classList.remove('show');
-        document.body.classList.remove('overlay-active');
-        
-        // Stop video by clearing src
-        iframe.src = "";
-        
-        // Re-enable body scrolling
-        document.body.style.overflow = '';
-    }
-}
-
-// Close overlay with escape key
-document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-        closeVideoOverlay();
-    }
-});
-
-// Set random logo immediately (before DOM fully loads)
-const logoUrls = [
-    'public/opponent_logo_sm.png',
-  /*  'public/opponent_logo_sm_golden.png', 
-    'public/opponent_logo_sm_jade.png',
-    'public/opponent_logo_sm_galactic_blue.png'*/
-];
-
-const randomIndex = Math.floor(Math.random() * logoUrls.length);
-document.getElementById('logo').src = logoUrls[randomIndex];
-
-// Text cycling configuration - only the changing parts
-const kidsChangingTexts = [
-    "Play time",
-    "Storyplay",
-    "Feedback",
-    "Attention",
-    "Practice",
-    "Soft skills",
-    "Challenge",
-    "Grounding",
-    "Worlding",
-    "Scaffolding",
-    "Story gym",
-    "Story sandbox"
-];
-
-const parentsChangingTexts = [
-    "Control",
-    "Proxy",
-    "Teammate",
-    "Support",
-    "Insight",
-    "Relief",
-    "Artifacts",
-    "Memories",
-    "Second brain" 
-];
-
-// Animation settings
-const KIDS_HOLD_TIME = 5000; // 3 seconds
-const PARENTS_HOLD_TIME = 3000; // 4 seconds
-const CHAR_REMOVE_DELAY = 20; // milliseconds between character removal
-const CHAR_ADD_DELAY = 40; // milliseconds between character addition
-
-let kidsCurrentIndex = 0;
-let parentsCurrentIndex = 0;
-let kidsAnimating = false;
-let parentsAnimating = false;
-
-function animateTextChange(element, newText, callback) {
-    const currentText = element.textContent;
-    let removeIndex = currentText.length;
-    
-    // Remove characters one by one
-    const removeInterval = setInterval(() => {
-        if (removeIndex > 0) {
-            element.textContent = currentText.substring(0, removeIndex - 1);
-            removeIndex--;
-        } else {
-            clearInterval(removeInterval);
-            
-            // Start adding new characters
-            let addIndex = 0;
-            const addInterval = setInterval(() => {
-                if (addIndex < newText.length) {
-                    element.textContent = newText.substring(0, addIndex + 1);
-                    addIndex++;
-                } else {
-                    clearInterval(addInterval);
-                    if (callback) callback();
-                }
-            }, CHAR_ADD_DELAY);
-        }
-    }, CHAR_REMOVE_DELAY);
-}
-
-function cycleKidsText() {
-    if (kidsAnimating) return;
-    kidsAnimating = true;
-    
-    const kidsElement = document.getElementById('kids-changing');
-    
-    // Get next random text (avoid repeating current)
-    let nextIndex;
-    do {
-        nextIndex = Math.floor(Math.random() * kidsChangingTexts.length);
-    } while (nextIndex === kidsCurrentIndex && kidsChangingTexts.length > 1);
-    
-    kidsCurrentIndex = nextIndex;
-    
-    animateTextChange(kidsElement, kidsChangingTexts[kidsCurrentIndex], () => {
-        kidsAnimating = false;
-        setTimeout(cycleKidsText, KIDS_HOLD_TIME);
-    });
-}
-
-function cycleParentsText() {
-    if (parentsAnimating) return;
-    parentsAnimating = true;
-    
-    const parentsElement = document.getElementById('parents-changing');
-    
-    // Get next random text (avoid repeating current)
-    let nextIndex;
-    do {
-        nextIndex = Math.floor(Math.random() * parentsChangingTexts.length);
-    } while (nextIndex === parentsCurrentIndex && parentsChangingTexts.length > 1);
-    
-    parentsCurrentIndex = nextIndex;
-    
-    animateTextChange(parentsElement, parentsChangingTexts[parentsCurrentIndex], () => {
-        parentsAnimating = false;
-        setTimeout(cycleParentsText, PARENTS_HOLD_TIME);
-    });
-}
-
-// Start cycling after page loads
-document.addEventListener('DOMContentLoaded', () => {
-    // Start kids text cycling after initial delay
-    setTimeout(cycleKidsText, KIDS_HOLD_TIME+1500);
-    
-    // Start parents text cycling after initial delay (offset timing)
-    setTimeout(cycleParentsText, PARENTS_HOLD_TIME);
-});
-
-// Add this to your existing script section
-document.addEventListener('DOMContentLoaded', () => {
-    const videoBox = document.querySelector('.video-preview-box');
-    const thumbnail = document.querySelector('.video-thumbnail');
-    const staticSrc = thumbnail.src; // Current: "public/dragon_look.jpg"
-    const gifSrc = staticSrc.replace('.jpg', '.gif'); // Changes to: "public/dragon_look.gif"
-    
-    videoBox.addEventListener('mouseenter', () => {
-        thumbnail.src = gifSrc;
-        videoBox.classList.add('hover-active');
-    });
-    
-    videoBox.addEventListener('mouseleave', () => {
-        thumbnail.src = staticSrc;
-        videoBox.classList.remove('hover-active');
-    });
-    
-    // ... rest of your existing DOMContentLoaded code
-});
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(cycleInternetText, HOLD_TIME + 800);
+            // startShieldSim();
+        });
     </script>
-
 </body>
 </html>
