@@ -376,7 +376,7 @@
             <img id="logo" src="public/opponent_logo_sm.png" width="96" alt="Opponent Systems"/>
 
             <div class="relation-stack">
-                <p class="stack-item cycling"><span class="phantom" aria-hidden="true">The Internet</span><span id="internet-changing">The Internet</span></p>
+                <p class="stack-item cycling"><span class="phantom" aria-hidden="true">🍷 Elite Preferences 🍷</span><span id="internet-changing">🌐 The Internet 🌐</span></p>
                 <div class="v-arrow" aria-hidden="true">↑ ↓</div>
                 <p class="stack-item">Opponent Systems</p>
                 <div class="v-arrow" aria-hidden="true">↑ ↓</div>
@@ -443,6 +443,32 @@
         const CHAR_REMOVE_DELAY = 20;
         const CHAR_ADD_DELAY = 40;
 
+        const EMOJI_FOR = {
+            "The Internet": ["🌐"],
+            "Bots": ["🤖"],
+            "Agents": ["👾"],
+            "News": ["📰"],
+            "For You": ["🍯"],
+            "Feeds": ["🚬"],
+            "The Office": ["📎"],
+            "The University": ["🎓"],
+            "Low Frequency": ["📉"],
+            "Demons": ["👹"],
+            "Clones": ["👥"],
+            "False Light": ["✨"],
+            "Elite Preferences": ["🍷"],
+            "Micro Plastics": ["🧬"],
+            "Cults": ["🕯"],
+            "Rumination": ["🔁"],
+            "Mind Killers": ["⚫"],
+            "Life Scripts": ["📜"]
+        };
+
+        function labelWithEmoji(text) {
+            const emoji = (EMOJI_FOR[text] && EMOJI_FOR[text][0]) || '';
+            return emoji ? emoji + ' ' + text + ' ' + emoji : text;
+        }
+
         let currentIndex = 0;
         let isAnimating = false;
         let currentLabel = rotatingTexts[0];
@@ -474,21 +500,22 @@
         }
 
         function animateTextChange(element, newText, callback) {
-            const currentText = element.textContent;
-            let removeIndex = currentText.length;
+            const currentChars = Array.from(element.textContent);
+            const nextChars = Array.from(newText);
+            let removeIndex = currentChars.length;
 
             const removeInterval = setInterval(() => {
                 if (removeIndex > 0) {
-                    element.textContent = currentText.substring(0, removeIndex - 1);
                     removeIndex--;
+                    element.textContent = currentChars.slice(0, removeIndex).join('');
                 } else {
                     clearInterval(removeInterval);
 
                     let addIndex = 0;
                     const addInterval = setInterval(() => {
-                        if (addIndex < newText.length) {
-                            element.textContent = newText.substring(0, addIndex + 1);
+                        if (addIndex < nextChars.length) {
                             addIndex++;
+                            element.textContent = nextChars.slice(0, addIndex).join('');
                         } else {
                             clearInterval(addInterval);
                             if (callback) callback();
@@ -509,23 +536,11 @@
             currentIndex = nextIndex;
             currentLabel = rotatingTexts[currentIndex];
 
-            animateTextChange(el, currentLabel, () => {
+            animateTextChange(el, labelWithEmoji(currentLabel), () => {
                 isAnimating = false;
                 setTimeout(cycleInternetText, HOLD_TIME);
             });
         }
-
-        const EMOJI_FOR = {
-            "The Internet": ["🌐", "💻", "📡", "👁"],
-            "bots": ["🤖"],
-            "agents": ["👾", "🕵️"],
-            "gov": ["🏛", "📋"],
-            "platforms": ["📱", "🟦"],
-            "For You": ["✨", "💫"],
-            "feeds": ["📰", "📜"],
-            "merchants": ["🛒", "💳"],
-            "APIs": ["⚡", "🔌"]
-        };
 
         function startShieldSim() {
             const host = document.getElementById('shieldSim');
