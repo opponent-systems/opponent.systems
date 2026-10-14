@@ -432,7 +432,6 @@
             "Clones",
             "False Light",
             "Elite Preferences",
-            "Consensus",
             "Micro Plastics",
             "Cults",
             "Rumination", 
@@ -468,7 +467,9 @@
 
         function afterPick(index) {
             for (let i = 0; i < weights.length; i++) {
-                weights[i] = (i === index) ? 1 : weights[i] + 1;
+                // Double each miss so neglected terms get hungry fast;
+                // reset the winner so it stays cold for a while.
+                weights[i] = (i === index) ? 1 : weights[i] * 2;
             }
         }
 
