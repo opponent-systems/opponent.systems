@@ -412,11 +412,8 @@
     </div>
 
     <div class="page-bottom">
-        <div class="main-container">
-            <p class="place"><a href="mailto:ian@opponent.systems">ian@opponent.systems</a></p>
-        </div>
         <div id="footer">
-            OPPONENT SYSTEMS 2026
+            👋&nbsp;<a href="mailto:ian@opponent.systems">ian@opponent.systems</a>&nbsp;| OPPONENT SYSTEMS 2026
         </div>
     </div>
 
@@ -425,19 +422,22 @@
             "The Internet",
             "Bots",
             "Agents",
-            "Apple News",
-            "Google News",
-            "Instagram",
-            "Amazon",
-            "ChatGPT",
-            "Claude",
-            "Gemini",
-            "X",
+            "News",
             "For You",
             "Feeds",
-            "Manager",
-            "School",
-            "Professor"
+            "The Office",
+            "The University",
+            "Low Frequency",
+            "Demons",
+            "Clones",
+            "False Light",
+            "Elite Preferences",
+            "Consensus",
+            "Micro Plastics",
+            "Cults",
+            "Rumination", 
+            "Mind Killers",
+            "Life Scripts",
         ];
 
         const HOLD_TIME = 3200;
@@ -447,6 +447,30 @@
         let currentIndex = 0;
         let isAnimating = false;
         let currentLabel = rotatingTexts[0];
+        const weights = rotatingTexts.map(() => 1);
+
+        function pickWeightedIndex() {
+            let total = 0;
+            for (let i = 0; i < weights.length; i++) {
+                if (i === currentIndex) continue;
+                total += weights[i];
+            }
+
+            let roll = Math.random() * total;
+            for (let i = 0; i < weights.length; i++) {
+                if (i === currentIndex) continue;
+                roll -= weights[i];
+                if (roll <= 0) return i;
+            }
+
+            return (currentIndex + 1) % weights.length;
+        }
+
+        function afterPick(index) {
+            for (let i = 0; i < weights.length; i++) {
+                weights[i] = (i === index) ? 1 : weights[i] + 1;
+            }
+        }
 
         function animateTextChange(element, newText, callback) {
             const currentText = element.textContent;
@@ -478,10 +502,8 @@
             isAnimating = true;
 
             const el = document.getElementById('internet-changing');
-            let nextIndex;
-            do {
-                nextIndex = Math.floor(Math.random() * rotatingTexts.length);
-            } while (nextIndex === currentIndex && rotatingTexts.length > 1);
+            const nextIndex = pickWeightedIndex();
+            afterPick(nextIndex);
 
             currentIndex = nextIndex;
             currentLabel = rotatingTexts[currentIndex];
