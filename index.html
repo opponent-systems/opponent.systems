@@ -792,12 +792,13 @@
             }
         }
 
-        function showSuccess() {
+        function showSuccess(name) {
             const formBox = document.querySelector('.waitlist-form');
+            const safeName = String(name || '').trim();
             formBox.innerHTML = `
                 <div style="text-align: center; padding: 20px 0;">
                     <div style="font-size: 14pt; color: red; line-height: 26px;">
-                        <i>Thank you for your interest.<br>We'll message you when Saga is ready to demo.</i>
+                        <i>Thank you${safeName ? ' ' + safeName : ''}.<br>We will message you when SAGA is ready to demo.</i>
                     </div>
                 </div>
             `;
@@ -942,7 +943,7 @@
 
             try {
                 await submitToNotion(name, phone);
-                showSuccess();
+                showSuccess(name);
             } catch (error) {
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
