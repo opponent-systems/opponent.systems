@@ -261,6 +261,9 @@
 
         .waitlist-form.is-confirm-hidden {
             visibility: hidden;
+            opacity: 0;
+            pointer-events: none;
+            transition: none;
         }
 
         .thanks-stack {
@@ -286,7 +289,7 @@
             width: fit-content;
             max-width: 100%;
             padding: 12px 24px;
-            background: rgba(255, 255, 255, 0.2);
+            background: #f1f1f1;
             border-radius: 25px;
             box-sizing: border-box;
             box-shadow:
@@ -1080,25 +1083,35 @@
             clearThanksSequence();
             const formBox = document.querySelector('.waitlist-form');
             const stack = document.getElementById('thanksStack');
-            formBox.classList.add('is-confirm-hidden');
-            stack.innerHTML = '';
-            stack.hidden = false;
             const steps = thanksSteps(name);
             let step = 0;
-            appendThanksBubble(steps[0]);
-            document.body.classList.add('confirm-active');
 
-            const advance = () => {
-                step += 1;
-                if (step >= steps.length) {
-                    thanksSequenceTimer = null;
-                    return;
-                }
-                appendThanksBubble(steps[step]);
+            // Hide form + show blur first; thank-you after paint so they don't overlap
+            formBox.classList.add('is-confirm-hidden');
+            document.body.classList.add('confirm-active');
+            stack.innerHTML = '';
+            stack.hidden = true;
+
+            const startSequence = () => {
+                stack.hidden = false;
+                appendThanksBubble(steps[0]);
+
+                const advance = () => {
+                    step += 1;
+                    if (step >= steps.length) {
+                        thanksSequenceTimer = null;
+                        return;
+                    }
+                    appendThanksBubble(steps[step]);
+                    thanksSequenceTimer = setTimeout(advance, THANKS_STEP_MS);
+                };
+
                 thanksSequenceTimer = setTimeout(advance, THANKS_STEP_MS);
             };
 
-            thanksSequenceTimer = setTimeout(advance, THANKS_STEP_MS);
+            requestAnimationFrame(() => {
+                requestAnimationFrame(startSequence);
+            });
         }
 
         function dismissConfirmBlur() {
