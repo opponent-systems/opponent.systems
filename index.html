@@ -229,6 +229,107 @@
                 inset 0 2px 8px rgba(255, 255, 255, 0.2),
                 inset 0 2px 8px rgba(255, 255, 255, 0.2),
                 0 0 24px rgba(255, 255, 255, 0.9);
+            position: relative;
+            z-index: 101;
+        }
+
+        .waitlist-thanks,
+        .waitlist-bubble {
+            text-align: center;
+            padding: 4px 8px;
+            font-size: 14pt;
+            line-height: 26px;
+            font-style: italic;
+            color: #EB3224;
+        }
+
+        .waitlist-status {
+            text-align: center;
+            white-space: nowrap;
+            padding: 4px 8px;
+            font-size: 16pt;
+            line-height: 26px;
+            font-style: italic;
+        }
+
+        .waitlist-form.is-compact {
+            width: fit-content;
+            max-width: calc(100% - 24px);
+            min-width: 0;
+            padding: 12px 24px;
+        }
+
+        .waitlist-form.is-confirm-hidden {
+            visibility: hidden;
+        }
+
+        .thanks-stack {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 101;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            width: fit-content;
+            max-width: min(420px, calc(100vw - 24px));
+            pointer-events: none;
+        }
+
+        .thanks-stack[hidden] {
+            display: none !important;
+        }
+
+        .thanks-stack .waitlist-bubble {
+            width: fit-content;
+            max-width: 100%;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            box-sizing: border-box;
+            box-shadow:
+                inset 0 2px 8px rgba(255, 255, 255, 0.2),
+                inset 0 2px 8px rgba(255, 255, 255, 0.2),
+                0 0 24px rgba(255, 255, 255, 0.9);
+            animation: waitlistBubbleIn 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        @keyframes waitlistBubbleIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px) scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .thanks-stack .waitlist-bubble {
+                animation: none;
+            }
+        }
+
+        .mid-stack.is-compact {
+            align-items: center;
+        }
+
+        .confirm-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: rgba(241, 241, 241, 0.18);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            cursor: pointer;
+        }
+
+        body.confirm-active .confirm-backdrop {
+            display: block;
         }
 
         .form-content {
@@ -387,6 +488,11 @@
                 border-radius: 20px;
             }
 
+            .thanks-stack .waitlist-bubble {
+                padding: 10px 18px;
+                border-radius: 20px;
+            }
+
             .form-content {
                 flex-direction: column !important;
                 gap: 6px !important;
@@ -464,6 +570,9 @@
             👋&nbsp;<a href="mailto:ian@opponent.systems">ian@opponent.systems</a>&nbsp;| OPPONENT SYSTEMS 2026
         </div>
     </div>
+
+    <div class="confirm-backdrop" id="confirmBackdrop" aria-hidden="true"></div>
+    <div class="thanks-stack" id="thanksStack" hidden aria-live="polite"></div>
 
     <script>
         const rotatingTexts = [
@@ -793,19 +902,211 @@
             }
         }
 
-        function showSuccess(name) {
+        const WAITLIST_STORAGE_KEY = 'os_waitlist';
+
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function saveWaitlistLocal(name, phone) {
+            try {
+                localStorage.setItem(WAITLIST_STORAGE_KEY, JSON.stringify({
+                    name: String(name || '').trim(),
+                    phone: String(phone || '').trim(),
+                    savedAt: Date.now()
+                }));
+            } catch (e) {
+                console.warn('Could not save waitlist state locally', e);
+            }
+        }
+
+        function loadWaitlistLocal() {
+            try {
+                const raw = localStorage.getItem(WAITLIST_STORAGE_KEY);
+                if (!raw) return null;
+                const data = JSON.parse(raw);
+                if (!data || !data.name) return null;
+                return data;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        const PILL_MORPH_MS = 580;
+        const THANKS_STEP_MS = 2200;
+        let thanksSequenceTimer = null;
+
+        function clearThanksSequence() {
+            if (thanksSequenceTimer) {
+                clearTimeout(thanksSequenceTimer);
+                thanksSequenceTimer = null;
+            }
+        }
+
+        function setWaitlistMode(compact) {
             const formBox = document.querySelector('.waitlist-form');
-            const safeName = String(name || '').trim();
+            const midStack = document.querySelector('.mid-stack');
+            formBox.classList.toggle('is-compact', compact);
+            if (midStack) midStack.classList.toggle('is-compact', compact);
+        }
+
+        function prefersReducedMotion() {
+            return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        }
+
+        function measurePillNaturalSize(formBox) {
+            const prev = {
+                width: formBox.style.width,
+                height: formBox.style.height,
+                minWidth: formBox.style.minWidth,
+                maxWidth: formBox.style.maxWidth,
+                transition: formBox.style.transition
+            };
+            formBox.style.transition = 'none';
+            formBox.style.width = 'fit-content';
+            formBox.style.height = 'auto';
+            formBox.style.minWidth = '0';
+            formBox.style.maxWidth = 'calc(100vw - 24px)';
+            const width = formBox.offsetWidth;
+            const height = formBox.offsetHeight;
+            formBox.style.width = prev.width;
+            formBox.style.height = prev.height;
+            formBox.style.minWidth = prev.minWidth;
+            formBox.style.maxWidth = prev.maxWidth;
+            formBox.style.transition = prev.transition;
+            return { width, height };
+        }
+
+        function morphPill(applyContent) {
+            const formBox = document.querySelector('.waitlist-form');
+            if (!formBox) {
+                applyContent();
+                return;
+            }
+
+            if (prefersReducedMotion()) {
+                applyContent();
+                return;
+            }
+
+            const startW = formBox.offsetWidth;
+            const startH = formBox.offsetHeight;
+
+            applyContent();
+
+            const { width: endW, height: endH } = measurePillNaturalSize(formBox);
+
+            formBox.style.transition = 'none';
+            formBox.style.width = startW + 'px';
+            formBox.style.height = startH + 'px';
+            formBox.style.minWidth = '0';
+            formBox.style.maxWidth = 'none';
+            formBox.style.overflow = 'hidden';
+            void formBox.offsetWidth;
+
+            formBox.style.transition =
+                'width ' + PILL_MORPH_MS + 'ms cubic-bezier(0.22, 1, 0.36, 1), ' +
+                'height ' + PILL_MORPH_MS + 'ms cubic-bezier(0.22, 1, 0.36, 1)';
+            formBox.style.width = endW + 'px';
+            formBox.style.height = endH + 'px';
+
+            let cleaned = false;
+            const cleanup = () => {
+                if (cleaned) return;
+                cleaned = true;
+                formBox.style.transition = '';
+                formBox.style.width = '';
+                formBox.style.height = '';
+                formBox.style.minWidth = '';
+                formBox.style.maxWidth = '';
+                formBox.style.overflow = '';
+                formBox.removeEventListener('transitionend', onEnd);
+            };
+
+            const onEnd = (event) => {
+                if (event.target !== formBox) return;
+                if (event.propertyName !== 'width' && event.propertyName !== 'height') return;
+                cleanup();
+            };
+
+            formBox.addEventListener('transitionend', onEnd);
+            setTimeout(cleanup, PILL_MORPH_MS + 100);
+        }
+
+        function thanksSteps(name) {
+            const safeName = escapeHtml(String(name || '').trim());
+            return [
+                `Thank you${safeName ? ' ' + safeName : ''}`,
+                `We will message you<br>when SAGA is ready to demo.`,
+                `Love and light.`
+            ];
+        }
+
+        function appendThanksBubble(html) {
+            const stack = document.getElementById('thanksStack');
+            const bubble = document.createElement('div');
+            bubble.className = 'waitlist-bubble';
+            bubble.innerHTML = html;
+            stack.appendChild(bubble);
+        }
+
+        function clearThanksModal() {
+            const stack = document.getElementById('thanksStack');
+            const formBox = document.querySelector('.waitlist-form');
+            stack.hidden = true;
+            stack.innerHTML = '';
+            formBox.classList.remove('is-confirm-hidden');
+        }
+
+        function renderWaitlistStatus(name) {
+            const formBox = document.querySelector('.waitlist-form');
+            const safeName = escapeHtml(String(name || '').trim() || 'You');
+            setWaitlistMode(true);
+            formBox.classList.remove('is-confirm-hidden');
             formBox.innerHTML = `
-                <div style="text-align: center; padding: 20px 0;">
-                    <div style="font-size: 14pt; color: red; line-height: 26px;">
-                        Thank you${safeName ? ' ' + safeName : ''}.<br>
-                        We will message you<br>
-                        when SAGA is ready to demo.<br>
-                        Love &amp; Light.
-                    </div>
+                <div class="waitlist-status">
+                    ${safeName} - you're on the waitlist...
                 </div>
             `;
+        }
+
+        function showSuccess(name, phone) {
+            saveWaitlistLocal(name, phone);
+            clearThanksSequence();
+            const formBox = document.querySelector('.waitlist-form');
+            const stack = document.getElementById('thanksStack');
+            formBox.classList.add('is-confirm-hidden');
+            stack.innerHTML = '';
+            stack.hidden = false;
+            const steps = thanksSteps(name);
+            let step = 0;
+            appendThanksBubble(steps[0]);
+            document.body.classList.add('confirm-active');
+
+            const advance = () => {
+                step += 1;
+                if (step >= steps.length) {
+                    thanksSequenceTimer = null;
+                    return;
+                }
+                appendThanksBubble(steps[step]);
+                thanksSequenceTimer = setTimeout(advance, THANKS_STEP_MS);
+            };
+
+            thanksSequenceTimer = setTimeout(advance, THANKS_STEP_MS);
+        }
+
+        function dismissConfirmBlur() {
+            clearThanksSequence();
+            clearThanksModal();
+            document.body.classList.remove('confirm-active');
+            const saved = loadWaitlistLocal();
+            if (saved) morphPill(() => renderWaitlistStatus(saved.name));
         }
 
         function showError(message) {
@@ -947,7 +1248,7 @@
 
             try {
                 await submitToNotion(name, phone);
-                showSuccess(name);
+                showSuccess(name, phone);
             } catch (error) {
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
@@ -956,7 +1257,17 @@
             }
         });
 
+        document.getElementById('confirmBackdrop').addEventListener('click', dismissConfirmBlur);
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') dismissConfirmBlur();
+        });
+
         document.addEventListener('DOMContentLoaded', () => {
+            const saved = loadWaitlistLocal();
+            if (saved) {
+                renderWaitlistStatus(saved.name);
+            }
             setTimeout(cycleInternetText, HOLD_TIME + 800);
             // startShieldSim();
         });
