@@ -1057,7 +1057,7 @@
         function thanksSteps(name) {
             const safeName = escapeHtml(String(name || '').trim());
             return [
-                `Thank you${safeName ? ' ' + safeName : ''}`,
+                `Thank you${safeName ? ' ' + safeName : ''}.`,
                 `We will message you<br>when SAGA is ready to demo.`,
                 `Love and light.`
             ];
